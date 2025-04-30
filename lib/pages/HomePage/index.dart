@@ -23,12 +23,13 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         title: Text("Monitor"),
       ),
       body: Center(
-        child: Text("HomePage"),
-      ),
+        child: Text("Home"),
+      )
     );
   }
 }
