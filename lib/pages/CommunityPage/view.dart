@@ -4,21 +4,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:widget_rat/widgets/capsuleTags/capsule_tags.dart';
 
-class ForumPage extends StatefulWidget {
+class CommunityPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return _ForumPageState();
+    return _CommunityPageState();
   }
 }
 
-class _ForumPageState extends State<ForumPage> {
-  static const bool hasPic = true;    // 是否有图片
+class _CommunityPageState extends State<CommunityPage> {
+  static const bool hasPic = false;    // 是否有图片
   @override
   void initState() {
     super.initState();
     // TODO: implement initState
-
   }
 
 
@@ -29,7 +28,7 @@ class _ForumPageState extends State<ForumPage> {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        title: Text("Forum"),
+        title: Text("Community"),
         actions: [
           IconButton(
             icon: Icon(Icons.search_rounded),
@@ -118,7 +117,7 @@ class _ForumPageState extends State<ForumPage> {
             child: CircleAvatar(
               radius: 30.sp,
               backgroundColor: Theme.of(context).colorScheme.surface,
-              foregroundImage: AssetImage("assets//images//dav.jpg"),
+              foregroundImage: AssetImage("assets/images/dav.jpg"),
             ),   //  用户头像图片
           ),   // 头像
           Container(
@@ -166,7 +165,11 @@ class _ForumPageState extends State<ForumPage> {
 
                               ],             // TODO：需要考虑最多标签数
                               tagsIcons: [Icons.account_box, Icons.access_alarms_rounded, Icons.add_a_photo_rounded],
-                              tagColors: [Colors.indigoAccent, Colors.blueGrey, Colors.lightGreen],
+                              tagColors: [
+                                Colors.indigoAccent,
+                                Colors.blueGrey,
+                                Colors.lightGreen
+                              ],
                               fixedHeight: 15.sp,
                               textStyle: TextStyle(
                                 fontSize: 5.sp,

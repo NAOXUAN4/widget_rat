@@ -55,6 +55,10 @@ dependencies:
   google_fonts: ^6.1.1
   #10.icon
   icons_launcher: ^2.1.0
+  # 11.riverpod:
+  flutter_riverpod: ^2.3.11
+
+
 #  #11.shared_preferences: 本地化存储
 #  shared_preferences: ^2.0.15
 #  #12.flutter_html
@@ -75,9 +79,16 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^4.0.0
+  custom_lint: ^0.6.4
+  riverpod_annotation: ^2.6.1
+  build_runner: ^2.4.15
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
+analyzer:
+  plugins:
+    - custom_lint
+
 
 # The following section is specific to Flutter packages.
 flutter:

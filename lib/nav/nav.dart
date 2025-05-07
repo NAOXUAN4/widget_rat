@@ -3,10 +3,10 @@ import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 
 import '../common/style/theme.dart';
-import '../pages/HomePage/index.dart';
-import '../pages/myPage/index.dart';
-import '../pages/forumPage/index.dart';
-import '../pages/sectionsPage/index.dart';
+import '../pages/HomePage/view.dart';
+import '../pages/myPage/view.dart';
+import '../pages/CommunityPage/view.dart';
+import '../pages/sectionsPage/view.dart';
 class GenNav extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _GenNavState();
@@ -41,7 +41,7 @@ class _GenNavState extends State<GenNav> {
   List<Widget> _buildScreens() {  // 返回页面列表
     return [
       HomePage(),
-      ForumPage(),
+      CommunityPage(),
       SectionsPage(),
       MyPage(),
     ];
@@ -58,7 +58,7 @@ class _GenNavState extends State<GenNav> {
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.forum),
-        title: ("Forum"),
+        title: ("Community"),
         activeColorPrimary: Theme.of(context).colorScheme.secondary,
         activeColorSecondary: Theme.of(context).colorScheme.secondary,
         inactiveColorPrimary: Theme.of(context).colorScheme.primary,

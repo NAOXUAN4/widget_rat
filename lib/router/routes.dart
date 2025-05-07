@@ -1,11 +1,12 @@
 import 'package:go_router/go_router.dart';
 import 'package:widget_rat/nav/nav.dart';
 
-import '../pages/SearchPage/index.dart';
-import '../pages/HomePage/index.dart';
-import '../pages/forumPage/index.dart';
-import '../pages/myPage/index.dart';
-import '../pages/sectionsPage/index.dart';
+
+import '../pages/SearchPage/view.dart';
+import '../pages/HomePage/view.dart';
+import '../pages/CommunityPage/view.dart';
+import '../pages/myPage/view.dart';
+import '../pages/sectionsPage/view.dart';
 
 final GoRouter approutes = GoRouter(
   routes: [     // 路由列表
@@ -22,7 +23,7 @@ final GoRouter approutes = GoRouter(
         GoRoute(
           path: 'forumPage',
           name: RouteNames.forumPage,
-          builder: (context, state) => ForumPage(),
+          builder: (context, state) => CommunityPage(),
         ),
         GoRoute(
           path: 'sectionsPage',
