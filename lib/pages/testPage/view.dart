@@ -1,19 +1,27 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:widget_rat/pages/testPage/viewmodel.dart';
 
-part 'view.g.dart';
 
-class TestPage extends ConsumerWidget{
+class TestPage extends StatelessWidget{
   const TestPage({super.key});
 
-  @riverpod
-  String test(TestPageRef ref){
-    return 'test';
-  }
-
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Container();
+  Widget build(BuildContext context) {
+    return Container(
+      child: Consumer(
+        builder: (_, ref, __){
+          final count = ref.watch(counterNotifierProvider);
+          return ElevatedButton(
+            onPressed: (){
+              ref.read(counterNotifierProvider.notifier).increment();
+            },
+            child: Text("$count"),
+          );
+        },
+      ),
+    );
   }
 }
 

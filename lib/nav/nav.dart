@@ -7,13 +7,14 @@ import '../pages/HomePage/view.dart';
 import '../pages/myPage/view.dart';
 import '../pages/CommunityPage/view.dart';
 import '../pages/sectionsPage/view.dart';
+import '../pages/testPage/view.dart';
 class GenNav extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _GenNavState();
 }
 
 class _GenNavState extends State<GenNav> {
-  final PersistentTabController _controller = PersistentTabController(initialIndex: 0);
+  final PersistentTabController _controller = PersistentTabController(initialIndex: 2);
 
   @override
   void initState() {
@@ -40,6 +41,7 @@ class _GenNavState extends State<GenNav> {
 
   List<Widget> _buildScreens() {  // 返回页面列表
     return [
+      TestPage(),
       HomePage(),
       CommunityPage(),
       SectionsPage(),
@@ -49,6 +51,14 @@ class _GenNavState extends State<GenNav> {
 
   List<PersistentBottomNavBarItem> _navBarsItems() {   // 返回底部导航栏列表
     return [
+      PersistentBottomNavBarItem(
+        icon: Icon(Icons.exit_to_app_sharp),
+        title: ("Test"),
+        activeColorPrimary: Theme.of(context).colorScheme.secondary,
+        activeColorSecondary: Theme.of(context).colorScheme.secondary,
+        inactiveColorPrimary: Theme.of(context).colorScheme.primary,
+      ),
+
       PersistentBottomNavBarItem(
         icon: Icon(Icons.home),
         title: ("Home"),

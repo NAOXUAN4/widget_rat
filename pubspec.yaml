@@ -59,8 +59,9 @@ dependencies:
   flutter_riverpod: ^2.3.11
 
 
-#  #11.shared_preferences: 本地化存储
-#  shared_preferences: ^2.0.15
+
+  #11.shared_preferences: 本地化存储
+  shared_preferences: ^2.5.3
 #  #12.flutter_html
 #  flutter_html: ^3.0.0-alpha.6
 #
@@ -68,6 +69,7 @@ dependencies:
   persistent_bottom_nav_bar: ^6.2.1
   #14.go_router:
   go_router: ^15.1.1
+  riverpod_generator: ^2.6.1
 
 dev_dependencies:
   flutter_test:
@@ -80,9 +82,7 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^4.0.0
   custom_lint: ^0.6.4
-  riverpod_annotation: ^2.6.1
-  build_runner: ^2.4.15
-
+  build_runner: ^2.3.3
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 analyzer:
