@@ -10,9 +10,9 @@ class UsersMeResData {
       num? id, 
       String? username, 
       String? email, 
-      String? avatarUrl, 
-      dynamic bio, 
-      dynamic githubUrl,}){
+      String? avatarUrl,
+      String? bio,
+      String? githubUrl,}){
     _id = id;
     _username = username;
     _email = email;
@@ -33,14 +33,14 @@ class UsersMeResData {
   String? _username;
   String? _email;
   String? _avatarUrl;
-  dynamic _bio;
-  dynamic _githubUrl;
+  String? _bio;
+  String? _githubUrl;
 UsersMeResData copyWith({  num? id,
   String? username,
   String? email,
   String? avatarUrl,
-  dynamic bio,
-  dynamic githubUrl,
+  String? bio,
+  String? githubUrl,
 }) => UsersMeResData(  id: id ?? _id,
   username: username ?? _username,
   email: email ?? _email,
@@ -52,8 +52,8 @@ UsersMeResData copyWith({  num? id,
   String? get username => _username;
   String? get email => _email;
   String? get avatarUrl => _avatarUrl;
-  dynamic get bio => _bio;
-  dynamic get githubUrl => _githubUrl;
+  String? get bio => _bio;
+  String? get githubUrl => _githubUrl;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

@@ -30,6 +30,20 @@ class TestPage extends StatelessWidget{
                   },
                   child: Text("Me"),
                 ),
+                ElevatedButton(
+                  onPressed: (){
+                    ref.read(counterNotifierProvider.notifier).registerTest();
+                  },
+                  child: Text("register"),
+                ),
+                ElevatedButton(
+                  onPressed: (){
+                    ref.read(counterNotifierProvider.notifier).getPostsListTest();
+                  },
+                  child: Text("postsList"),
+                ),
+
+
               ],
             ),
           );

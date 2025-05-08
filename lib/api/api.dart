@@ -1,9 +1,7 @@
 //api请求统一解析
-import 'dart:ffi';
-import 'dart:math';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:widget_rat/api/dataClass/Posts_List_data.dart';
 import 'package:widget_rat/api/dataClass/UsersMe_Res_data.dart';
 import '../http/dio_instance.dart';
 
@@ -43,12 +41,20 @@ class Api {
   //   return homeTopListData.topList;
   // }
   //
-  // Future<List<CommonWebsiteData>?> getWebListData()async {   ///发送，接收，解析 常用网页列表
-  //   Response response = await DioInstance.instance().get(
-  //       path: "friend/json");  //发送请求，await直到获得回复
-  //   CommonWebsiteListData commonwebsite = CommonWebsiteListData.fromJson(response.data);   //调用数据模型构造函数，解析数据
-  //   return commonwebsite.websiteList;
-  // }
+  /// GET "api/posts/?page=1" 获取站内文章列表
+  Future<List<PostsListDataItem>?> getPostsList(int? pageNum)async {   ///发送，接收，解析 常用网页列表
+    Response response = await DioInstance.instance().get(
+        path: "api/posts/?page=${pageNum}");  //发送请求，await直到获得回复
+    PostsListData postsListData = PostsListData.fromJson(response.data);  //解析json数据
+    return postsListData.results;
+  }
+
+  Future<dynamic> getPostsDetail(int? id)async{
+    Response response = await DioInstance.instance().get(
+        path: "api/posts/$id/");
+
+  }
+
   //
   // Future<List<HotKeyData>?>getHotKeyData()async{
   //   Response response = await DioInstance.instance().get(
@@ -57,20 +63,22 @@ class Api {
   //   return hotkey.hotkeyList;
   // }
   //
-  // Future<dynamic>register(String? username,String? password,String? repassword)async{
-  //   Response response = await DioInstance.instance().post(   //发送Post传参请求
-  //       path: "user/register",
-  //       data: {"username":username,"password":password,"repassword":repassword});
-  //   // print(response.data);
-  //   try{ //若报错肯定进入过拦截器的错误处理
-  //     response.data["errorCode"] == 0; //没被修改过，还存在"errcode"
-  //     return true;
-  //   }
-  //   catch(e){
-  //     return false;
-  //   }//拦截器会返回true或false
-  // }
-  //
+
+  /// POST "api/users/register/" 注册，返回JWT令牌, 用户基本信息
+  Future<dynamic>register(String? username,String? password,String? repassword)async{
+    Response response = await DioInstance.instance().post(   //发送Post传参请求
+        path: "api/users/register",
+        data: {"username":username,"password":password});
+    // logger.d("${response.data}");
+    try{ //若报错肯定进入过拦截器的错误处理
+      response.data["errorCode"] == 0; //没被修改过，还存在"errcode"
+      return true;
+    }
+    catch(e){
+      return false;
+    }//拦截器会返回true或false
+  }
+
 
   /// POST "api/users/login/" 登录，返回JWT令牌
   Future<dynamic>login(String? username,String? password)async{
