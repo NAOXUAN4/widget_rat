@@ -42,6 +42,12 @@ class TestPage extends StatelessWidget{
                   },
                   child: Text("postsList"),
                 ),
+                ElevatedButton(
+                  onPressed: (){
+                    ref.read(counterNotifierProvider.notifier).getPostsDetailTest();
+                  },
+                  child: Text("postsDetail"),
+                ),
 
 
               ],

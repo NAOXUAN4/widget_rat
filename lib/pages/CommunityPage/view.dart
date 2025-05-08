@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
+import 'package:widget_rat/pages/CommunityPage/viewmodel.dart';
 import 'package:widget_rat/widgets/capsuleTags/capsule_tags.dart';
 
 class CommunityPage extends StatefulWidget {
@@ -17,13 +19,10 @@ class _CommunityPageState extends State<CommunityPage> {
   @override
   void initState() {
     super.initState();
-    // TODO: implement initState
   }
-
 
   @override
   Widget build(BuildContext context) {
-
     // TODO: implement build
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
@@ -65,17 +64,22 @@ class _CommunityPageState extends State<CommunityPage> {
   }
 
   Widget _ListView(){
-    return ListView.builder( //下方内容
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemBuilder: (context, index) {
-        return _ListItem(index: index);
-      },
-      itemCount: 10,);
+    return Consumer(
+      builder: ( _, ref, __) {
+        final comListState = ref.watch(ComListStateNotifierProvider);
+        return ListView.builder( //下方内容
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemBuilder: (context, index) {
+            return _ListItem(index: index, comListState: comListState);
+          },
+          itemCount: comListState.postsList.length,);
+      }
+    );
 
   }
 
-  Widget _ListItem({required int index}){
+  Widget _ListItem({required int index, required ComListState comListState}){
     return Container(
       height: hasPic ? 240.sp : 160.sp,
       margin: EdgeInsets.symmetric(vertical: 1.sp),  // 轴向间距
@@ -85,14 +89,20 @@ class _CommunityPageState extends State<CommunityPage> {
       ),
       child: Column(
         children: [
-          _ListItemTitle(),
+          _ListItemTitle(
+            title: comListState.postsList[index].title ?? "Null",
+            createdAt: comListState.postsList[index].createdAt ?? "Null",
+            postType: comListState.postsList[index].postType ?? "Null",
+          ),
           _ListItemContent(),
         ]
       )
     );
   }
 
-  Widget _ListItemTitle(){
+  Widget _ListItemTitle({required String title,
+                          required String createdAt,
+                          required String postType}){
     return Container(
       height: 80.sp,
       width:  double.infinity,
@@ -138,7 +148,7 @@ class _CommunityPageState extends State<CommunityPage> {
                     ),
                     margin: EdgeInsets.symmetric(vertical: 5.sp),
                     child: Text(
-                        "卡片标题卡片标题卡片标题卡片标题卡片标题卡片标题卡片标题卡片标题卡片标题卡片标题",
+                        title,
                         style: TextStyle(
                           fontSize: 14.sp,
                           fontWeight: FontWeight.bold,
@@ -159,10 +169,7 @@ class _CommunityPageState extends State<CommunityPage> {
                         Container(               // 胶囊标签
                             child: CapsuleTags(
                               tags: [
-                                "标签1",
-                                "标签2",
-                                "标签3",
-
+                                "${postType}",
                               ],             // TODO：需要考虑最多标签数
                               tagsIcons: [Icons.account_box, Icons.access_alarms_rounded, Icons.add_a_photo_rounded],
                               tagColors: [
@@ -186,7 +193,7 @@ class _CommunityPageState extends State<CommunityPage> {
                             // color: Colors.yellow,
                           ),
                           child:  Text(
-                              "重新编辑于 202420242024",
+                              "重新编辑于 ${createdAt}",
                               style: TextStyle(
                                 fontSize: 10.sp,
                                 color: Theme.of(context).colorScheme.onSurfaceVariant,

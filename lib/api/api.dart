@@ -1,6 +1,7 @@
 //api请求统一解析
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:widget_rat/api/dataClass/Posts_Detail_data.dart';
 import 'package:widget_rat/api/dataClass/Posts_List_data.dart';
 import 'package:widget_rat/api/dataClass/UsersMe_Res_data.dart';
 import '../http/dio_instance.dart';
@@ -44,14 +45,17 @@ class Api {
   /// GET "api/posts/?page=1" 获取站内文章列表
   Future<List<PostsListDataItem>?> getPostsList(int? pageNum)async {   ///发送，接收，解析 常用网页列表
     Response response = await DioInstance.instance().get(
-        path: "api/posts/?page=${pageNum}");  //发送请求，await直到获得回复
+        path: "api/posts-list/?page=${pageNum}");  //发送请求，await直到获得回复
     PostsListData postsListData = PostsListData.fromJson(response.data);  //解析json数据
     return postsListData.results;
   }
 
+  /// GET "api/posts/:id" 获取<int: id>文章详情
   Future<dynamic> getPostsDetail(int? id)async{
     Response response = await DioInstance.instance().get(
         path: "api/posts/$id/");
+    PostsDetailData postsDetailData = PostsDetailData.fromJson(response.data);
+    return postsDetailData;
 
   }
 

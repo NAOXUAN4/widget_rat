@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:widget_rat/api/dataClass/Posts_Detail_data.dart';
 import 'package:widget_rat/api/dataClass/Posts_List_data.dart';
 
 import '../../api/api.dart';
@@ -22,6 +23,11 @@ class CounterStateNotifier extends StateNotifier<int> {
   Future getPostsListTest() async{
     var response = await Api.instance.getPostsList(1);
     logger.d("${response?[0].id}");
+  }
+  Future getPostsDetailTest() async{
+    var response = await Api.instance.getPostsDetail(2);
+    PostsDetailData  postsDetailData = response;
+    logger.d(postsDetailData);
   }
 }
 
