@@ -1,31 +1,36 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import '../utils/constants.dart';
-import '../utils/sp_utils.dart';
+import '../../utils/constants.dart';
+import '../../utils/logger.dart';
+import '../../utils/sp_utils.dart';
 
 class AuthInterceptor extends Interceptor {
   final Dio _dio = Dio();
 
   // 请求拦截：添加 Cookie
   @override
-  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    SpUtils.getStringList(Constants.SP_Cookie_List).then((cookies) {
+  Future<void> onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
+    try {
+      List<String>? cookies = await SpUtils.getStringList(Constants.SP_Cookie_List);
       if (cookies != null && cookies.isNotEmpty) {
-        options.headers[HttpHeaders.cookieHeader] = cookies;
+        options.headers[HttpHeaders.cookieHeader] = cookies.join("; ");
       }
-      handler.next(options);
-    }).catchError((e) {
-      handler.next(options);
-    });
+    } catch (e) {
+      // 忽略错误或打印日志
+    }
+
+    // 确保 cookie 设置完成后再继续发送请求
+    handler.next(options);
   }
+
 
   // 响应拦截：保存 Cookie（登录和刷新接口）
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
     final String path = response.requestOptions.path;
 
-    if (path.contains("user/login") || path.contains("token/refresh")) {
+    if (path.contains("users/login") || path.contains("token/refresh")) {
       dynamic list = response.headers[HttpHeaders.setCookieHeader];
       List<String> cookieList = [];
 

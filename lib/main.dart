@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-// import 'package:go_router/go_router.dart';
+
+
 import 'package:oktoast/oktoast.dart';
 import 'package:widget_rat/router/routes.dart';
 import 'package:widget_rat/common/style/theme.dart';
+import 'package:widget_rat/utils/constants.dart';
+
+import 'http/dio_instance.dart';
 
 
 
@@ -15,7 +19,7 @@ void main() {
     systemNavigationBarColor: Colors.transparent,
     statusBarIconBrightness: Brightness.dark,
   ));
-
+  DioInstance.instance().initDio(baseUrl: Constants.baseUrl);
   runApp(ProviderScope(child: const MyApp()));     // ProviderScope 包裹
 }
 

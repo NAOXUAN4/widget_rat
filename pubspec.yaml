@@ -70,6 +70,7 @@ dependencies:
   #14.go_router:
   go_router: ^15.1.1
   riverpod_generator: ^2.6.1
+  logger: ^2.5.0
 
 dev_dependencies:
   flutter_test:

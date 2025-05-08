@@ -1,7 +1,8 @@
 //封装dio实例
 
 import 'package:dio/dio.dart';
-import 'AuthInterceptor.dart';
+import 'package:widget_rat/http/Interceptors/print_log_interceptor.dart';
+import 'Interceptors/Auth_Interceptor.dart';
 import 'http_methods.dart';
 
 
@@ -34,7 +35,7 @@ class DioInstance{
       contentType: contentType ?? Headers.formUrlEncodedContentType,
     );
     _dio.interceptors.add(AuthInterceptor());   //先添加cookie拦截器，防止后面拦截器污染
-    // _dio.interceptors.add(PrintLogInterceptor());
+    _dio.interceptors.add(PrintLogInterceptor());
     // _dio.interceptors.add(ResponseInterceptor());
 
   }

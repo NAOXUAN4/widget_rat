@@ -13,11 +13,25 @@ class TestPage extends StatelessWidget{
       child: Consumer(
         builder: (_, ref, __){
           final count = ref.watch(counterNotifierProvider);
-          return ElevatedButton(
-            onPressed: (){
-              ref.read(counterNotifierProvider.notifier).increment();
-            },
-            child: Text("$count"),
+          return Container(
+            alignment: Alignment.center,
+            padding: EdgeInsets.all(20),
+            child: Column(
+              children: [
+                ElevatedButton(
+                  onPressed: (){
+                    ref.read(counterNotifierProvider.notifier).LoginTest();
+                  },
+                  child: Text("Login"),
+                ),
+                ElevatedButton(
+                  onPressed: (){
+                    ref.read(counterNotifierProvider.notifier).meTest();
+                  },
+                  child: Text("Me"),
+                ),
+              ],
+            ),
           );
         },
       ),
