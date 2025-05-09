@@ -1,7 +1,7 @@
 /// count : 2
 /// next : null
 /// previous : null
-/// results : [{"id":2,"title":"测试帖子二","author":1,"author_username":"Nanyian","post_type":"discussion","upvotes":0,"created_at":"2025-05-05 07:11:46"},{"id":1,"title":"测试帖子一","author":1,"author_username":"Nanyian","post_type":"discussion","upvotes":0,"created_at":"2025-05-05 07:10:22"}]
+/// results : [{"id":2,"title":"测试帖子二","author":1,"author_avatar_url":"http://....","post_type":"discussion","upvotes":0,"created_at":"2025-05-05 07:11:46"},{"id":1,"title":"测试帖子一","author":1,"author_avatar_url":"Nanyian","post_type":"discussion","upvotes":0,"created_at":"2025-05-05 07:10:22"}]
 
 class PostsListData {
   PostsListData({
@@ -60,7 +60,7 @@ PostsListData copyWith({  num? count,
 /// id : 2
 /// title : "测试帖子二"
 /// author : 1
-/// author_username : "Nanyian"
+/// author_avatar_url : "http://...."
 /// post_type : "discussion"
 /// upvotes : 0
 /// created_at : "2025-05-05 07:11:46"
@@ -70,14 +70,14 @@ class PostsListDataItem {
       num? id, 
       String? title, 
       num? author, 
-      String? authorUsername, 
+      String? authorAvatarUrl, 
       String? postType, 
       num? upvotes, 
       String? createdAt,}){
     _id = id;
     _title = title;
     _author = author;
-    _authorUsername = authorUsername;
+    _authorAvatarUrl = authorAvatarUrl;
     _postType = postType;
     _upvotes = upvotes;
     _createdAt = createdAt;
@@ -87,7 +87,7 @@ class PostsListDataItem {
     _id = json['id'];
     _title = json['title'];
     _author = json['author'];
-    _authorUsername = json['author_username'];
+    _authorAvatarUrl = json['author_avatar_url'];
     _postType = json['post_type'];
     _upvotes = json['upvotes'];
     _createdAt = json['created_at'];
@@ -95,21 +95,21 @@ class PostsListDataItem {
   num? _id;
   String? _title;
   num? _author;
-  String? _authorUsername;
+  String? _authorAvatarUrl;
   String? _postType;
   num? _upvotes;
   String? _createdAt;
 PostsListDataItem copyWith({  num? id,
   String? title,
   num? author,
-  String? authorUsername,
+  String? authorAvatarUrl,
   String? postType,
   num? upvotes,
   String? createdAt,
 }) => PostsListDataItem(  id: id ?? _id,
   title: title ?? _title,
   author: author ?? _author,
-  authorUsername: authorUsername ?? _authorUsername,
+  authorAvatarUrl: authorAvatarUrl ?? _authorAvatarUrl,
   postType: postType ?? _postType,
   upvotes: upvotes ?? _upvotes,
   createdAt: createdAt ?? _createdAt,
@@ -117,7 +117,7 @@ PostsListDataItem copyWith({  num? id,
   num? get id => _id;
   String? get title => _title;
   num? get author => _author;
-  String? get authorUsername => _authorUsername;
+  String? get authorAvatarUrl => _authorAvatarUrl;
   String? get postType => _postType;
   num? get upvotes => _upvotes;
   String? get createdAt => _createdAt;
@@ -127,7 +127,7 @@ PostsListDataItem copyWith({  num? id,
     map['id'] = _id;
     map['title'] = _title;
     map['author'] = _author;
-    map['author_username'] = _authorUsername;
+    map['author_avatar_url'] = _authorAvatarUrl;
     map['post_type'] = _postType;
     map['upvotes'] = _upvotes;
     map['created_at'] = _createdAt;

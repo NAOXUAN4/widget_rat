@@ -47,7 +47,7 @@ class _MyAppState extends State<MyApp> {
             routerConfig: approutes,
             theme: AppTheme.lightTheme,
             darkTheme: AppTheme.darkTheme,
-            themeMode: ThemeMode.dark,
+            themeMode: ThemeMode.light,
           );
         },
       ),

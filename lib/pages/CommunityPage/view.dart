@@ -81,7 +81,7 @@ class _CommunityPageState extends State<CommunityPage> {
 
   Widget _ListItem({required int index, required ComListState comListState}){
     return Container(
-      height: hasPic ? 240.sp : 160.sp,
+      height: hasPic ? 240.sp : 90.sp,
       margin: EdgeInsets.symmetric(vertical: 1.sp),  // 轴向间距
       padding: EdgeInsets.all(2.sp),
       decoration: BoxDecoration(
@@ -93,16 +93,19 @@ class _CommunityPageState extends State<CommunityPage> {
             title: comListState.postsList[index].title ?? "Null",
             createdAt: comListState.postsList[index].createdAt ?? "Null",
             postType: comListState.postsList[index].postType ?? "Null",
+            avatorUrl: comListState.postsList[index].authorAvatarUrl ?? "NULL",
           ),
-          _ListItemContent(),
+          // _ListItemContent(),
         ]
       )
     );
   }
 
-  Widget _ListItemTitle({required String title,
-                          required String createdAt,
-                          required String postType}){
+  Widget _ListItemTitle({required String title,        /// 标题
+                          required String createdAt,   /// 创建时间
+                          required String postType,     /// 分类
+                          required String avatorUrl         /// 头像
+  }){
     return Container(
       height: 80.sp,
       width:  double.infinity,
@@ -127,7 +130,7 @@ class _CommunityPageState extends State<CommunityPage> {
             child: CircleAvatar(
               radius: 30.sp,
               backgroundColor: Theme.of(context).colorScheme.surface,
-              foregroundImage: AssetImage("assets/images/dav.jpg"),
+              foregroundImage: NetworkImage(avatorUrl),
             ),   //  用户头像图片
           ),   // 头像
           Container(
@@ -146,7 +149,7 @@ class _CommunityPageState extends State<CommunityPage> {
                     decoration: BoxDecoration(
                       // color: Colors.amber,
                     ),
-                    margin: EdgeInsets.symmetric(vertical: 5.sp),
+                    margin: EdgeInsets.only(top: 15.sp,bottom: 5.sp),
                     child: Text(
                         title,
                         style: TextStyle(
@@ -171,11 +174,11 @@ class _CommunityPageState extends State<CommunityPage> {
                               tags: [
                                 "${postType}",
                               ],             // TODO：需要考虑最多标签数
-                              tagsIcons: [Icons.account_box, Icons.access_alarms_rounded, Icons.add_a_photo_rounded],
+                              tagsIcons: [
+                                tagColorIconenum.tagStyleEnum[postType]![1],
+                              ],
                               tagColors: [
-                                Colors.indigoAccent,
-                                Colors.blueGrey,
-                                Colors.lightGreen
+                                tagColorIconenum.tagStyleEnum[postType]![0],
                               ],
                               fixedHeight: 15.sp,
                               textStyle: TextStyle(
@@ -245,7 +248,7 @@ class _CommunityPageState extends State<CommunityPage> {
               // color: Colors.blue,
             ),
             child: Text(           // 正文
-              "卡片正文卡片正文卡片正文卡片正文卡片正文卡片正文卡片正文卡片正文卡片正文卡片正文卡片正文卡片正文卡片正文卡片正文卡片正文卡片正文卡片正文卡片正卡片正文卡片正文文卡片正文卡片正文",
+              "",
               style: TextStyle(
                 fontSize: 12.sp,
                 color: Theme.of(context).colorScheme.onSurface,
