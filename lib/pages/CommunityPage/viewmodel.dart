@@ -13,17 +13,42 @@ class ComListState {
 
 
 class ComListStateNotifier extends StateNotifier<ComListState> {
+  var _pageNow  = 1;   /// 初始当前页码
+  bool _hasMore = true;
+
   ComListStateNotifier() : super(ComListState(postsList: [])) {
-    fetchPostsList(); // 初始化的时候自动加载
+    initComListState();   /// 初始化ComListState
   }
 
-  Future<void> fetchPostsList() async {
-    state = ComListState(isLoading: true, postsList: state.postsList);
-    var response = await Api.instance.getPostsList(1);
-    if (response != null) {
-      state = ComListState(postsList: response, isLoading: false);
-    } else {
-      state = ComListState(postsList: [], isLoading: false);
+  Future<void> initComListState() async {
+    await fetchPostsList(isRefresh: true);
+  }
+
+  Future<void> fetchPostsList({bool isRefresh = false}) async {
+    if(isRefresh){
+      _pageNow = 1;
+      _hasMore = true;
+    }
+    if (!_hasMore) {
+      return;
+    }
+
+    final response = await Api.instance.getPostsList(_pageNow);  // 获取数据
+
+    if (response != null && response.isNotEmpty) {
+      if(isRefresh){
+        state = ComListState(postsList: response, isLoading: false);  // postList = Page1
+      }else{
+        state = ComListState(
+            postsList: [... state.postsList, ...response],
+            isLoading: false
+        );
+      }
+      _pageNow++;
+      _hasMore = response.length == 10;   // 如果返回的数据长度为10，则还有更多数据，否则没有更多数据
+    }else{
+      _hasMore = false;
+      state = ComListState(postsList: state.postsList, isLoading: false);
     }
   }
 }
@@ -33,11 +58,3 @@ final ComListStateNotifierProvider = StateNotifierProvider<ComListStateNotifier,
 );
 
 
-/// 标签颜色枚举
-class tagColorIconenum  {
-  static final Map<String,List> tagStyleEnum= {
-    'question': [Color(0xFF7FFFF8),Icons.question_mark_sharp],
-    'showcase': [Color(0xFFFFF681),Icons.handyman_outlined],
-    'discussion': [Color(0xFFFFABC8),Icons.forum_outlined],
-  };
-}

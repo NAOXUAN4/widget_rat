@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:widget_rat/pages/CommunityPage/viewmodel.dart';
+import 'package:widget_rat/pages/CommunityPage/widget/avator_Container.dart';
 import 'package:widget_rat/widgets/capsuleTags/capsule_tags.dart';
+
+import '../../common/style/theme.dart';
 
 class CommunityPage extends StatefulWidget {
   @override
@@ -16,9 +20,17 @@ class CommunityPage extends StatefulWidget {
 
 class _CommunityPageState extends State<CommunityPage> {
   static const bool hasPic = false;    // 是否有图片
+  late final RefreshController _refreshController  = RefreshController();       //下拉刷新控制器
+
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _refreshController.dispose();
+    super.dispose();
   }
 
   @override
@@ -43,22 +55,41 @@ class _CommunityPageState extends State<CommunityPage> {
           ),
         ],
       ),
-      body: SafeArea(    //使用safe_area，防止顶部导航栏被遮挡
-        child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                  margin: EdgeInsets.only(top: 2.sp),
-                  height: 180.sp, // 根据需要调整高度
-                  color: Theme.of(context).colorScheme.surface, // 可以替换为实际的 Banner 组件或图片
-                  child: Center(
-                    child: Text("Banner"),
-                  ),
-                ),
-                _ListView(),
-              ],
-            )
-        )
+      body: Consumer(
+        builder: (context,ref,__) {
+          return SmartRefresher(    ///  下拉刷新
+            controller: _refreshController,
+            enablePullUp: true,
+            enablePullDown: true,
+            header: MaterialClassicHeader(),
+            footer: ClassicFooter(),
+            onLoading: () async{
+              await ref.read(ComListStateNotifierProvider.notifier).fetchPostsList(isRefresh: false).then((value) {
+                  _refreshController.loadComplete();
+                });
+            },
+            onRefresh: () async{
+              await ref.read(ComListStateNotifierProvider.notifier).fetchPostsList(isRefresh: true).then((onValue){
+                _refreshController.refreshCompleted();
+              });
+            },
+
+            child: SafeArea(    //使用safe_area，防止顶部导航栏被遮挡
+              child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(top: 2.sp),
+                        height: 80.sp, // 根据需要调整高度
+                        child: Center(child: Text("Following Bar"))
+                      ),
+                      _ListView(),
+                    ],
+                  )
+              )
+            ),
+          );
+        }
       )
     );
   }

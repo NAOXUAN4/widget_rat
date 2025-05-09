@@ -65,3 +65,12 @@ class AppTheme {
   static const Color neonEffect = _darkSecondary; // 荧光绿特效（如按钮光效）
   static const Color codeHighlight = Color(0xFF00FF00); // 代码高亮绿
 }
+
+/// 标签颜色枚举
+class tagColorIconenum  {
+  static final Map<String,List> tagStyleEnum= {
+    'question': [Color(0xB87FFFF8),Icons.question_mark_sharp],
+    'showcase': [Color(0xB8FFF681),Icons.handyman_outlined],
+    'discussion': [Color(0xB8FFABC8),Icons.forum_outlined],
+  };
+}
