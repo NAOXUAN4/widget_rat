@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
+import 'package:widget_rat/pages/PostDetailPage/view.dart';
 
 
 import '../common/style/theme.dart';
@@ -42,11 +43,14 @@ class _GenNavState extends State<GenNav> {
   List<Widget> _buildScreens() {  // 返回页面列表
     return [
       TestPage(),
+      // PostDetailPage(postId : "1"),
       HomePage(),
       CommunityPage(),
       SectionsPage(),
-      MyPage(),
+      // MyPage(),
+      TestPage(),
     ];
+
   }
 
   List<PersistentBottomNavBarItem> _navBarsItems() {   // 返回底部导航栏列表

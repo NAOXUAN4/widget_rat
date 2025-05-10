@@ -1,7 +1,7 @@
 //api请求统一解析
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:widget_rat/api/dataClass/Posts_Detail_data.dart';
+
 import 'package:widget_rat/api/dataClass/Posts_List_data.dart';
 import 'package:widget_rat/api/dataClass/UsersMe_Res_data.dart';
 import '../http/dio_instance.dart';
@@ -9,6 +9,7 @@ import '../http/dio_instance.dart';
 
 import '../utils/logger.dart';
 import 'dataClass/Login_Res_data.dart';
+import 'dataClass/Post_Detail_data.dart';
 // import 'datas/common_website_data.dart';
 // import 'datas/home_Lists_data.dart';
 // import 'datas/home_banner_data.dart';
@@ -51,10 +52,10 @@ class Api {
   }
 
   /// GET "api/posts/:id" 获取<int: id>文章详情
-  Future<dynamic> getPostsDetail(int? id)async{
+  Future<dynamic> getPostsDetail(String id)async{
     Response response = await DioInstance.instance().get(
         path: "api/posts/$id/");
-    PostsDetailData postsDetailData = PostsDetailData.fromJson(response.data);
+    PostDetailData postsDetailData = PostDetailData.fromJson(response.data);
     return postsDetailData;
 
   }

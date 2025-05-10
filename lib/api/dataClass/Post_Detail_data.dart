@@ -1,28 +1,28 @@
-/// id : 2
-/// title : "测试帖子二"
-/// content : "帖子正文帖子正文帖子正文帖子正文帖子正文"
+/// id : 1
+/// title : "Post1"
+/// content : [{"type":"text","value":"..."},{"type":"image","url":"..."}]
 /// author : 1
 /// author_username : "Nanyian"
 /// post_type : "discussion"
 /// tool : null
-/// created_at : "2025-05-05 07:11:46"
-/// updated_at : "2025-05-05 07:11:46"
+/// created_at : "2025-05-10 12:18:30"
+/// updated_at : "2025-05-10 12:18:30"
 /// upvotes : 0
-/// comments : [{"id":1,"post":2,"author":1,"author_username":"Nanyian","content":"挺好的挺好的","created_at":"2025-05-08 16:42:39","parent_comment":null},{"id":2,"post":2,"author":1,"author_username":"Nanyian","content":"挺好的挺好的222","created_at":"2025-05-08 16:42:47","parent_comment":null},{"id":3,"post":2,"author":1,"author_username":"Nanyian","content":"挺好的挺好的333","created_at":"2025-05-08 16:42:57","parent_comment":2}]
+/// comments : [{"id":1,"post":1,"author":1,"author_username":"Nanyian","content":"不错不错","created_at":"2025-05-10 12:22:29","parent_comment":null},{"id":2,"post":1,"author":1,"author_username":"Nanyian","content":"不错不错222","created_at":"2025-05-10 12:22:41","parent_comment":1}]
 
-class PostsDetailData {
-  PostsDetailData({
-      num? id, 
-      String? title, 
-      String? content, 
-      num? author, 
-      String? authorUsername, 
-      String? postType, 
-      dynamic tool, 
-      String? createdAt, 
-      String? updatedAt, 
-      num? upvotes, 
-      List<Comments>? comments,}){
+class PostDetailData {
+  PostDetailData({
+      num? id,
+      String? title,
+      List<PostDetailContent>? content,
+      num? author,
+      String? authorUsername,
+      String? postType,
+      dynamic tool,
+      String? createdAt,
+      String? updatedAt,
+      num? upvotes,
+      List<PostDetailComments>? comments,}){
     _id = id;
     _title = title;
     _content = content;
@@ -36,10 +36,15 @@ class PostsDetailData {
     _comments = comments;
 }
 
-  PostsDetailData.fromJson(dynamic json) {
+  PostDetailData.fromJson(dynamic json) {
     _id = json['id'];
     _title = json['title'];
-    _content = json['content'];
+    if (json['content'] != null) {
+      _content = [];
+      json['content'].forEach((v) {
+        _content?.add(PostDetailContent.fromJson(v));
+      });
+    }
     _author = json['author'];
     _authorUsername = json['author_username'];
     _postType = json['post_type'];
@@ -50,13 +55,13 @@ class PostsDetailData {
     if (json['comments'] != null) {
       _comments = [];
       json['comments'].forEach((v) {
-        _comments?.add(Comments.fromJson(v));
+        _comments?.add(PostDetailComments.fromJson(v));
       });
     }
   }
   num? _id;
   String? _title;
-  String? _content;
+  List<PostDetailContent>? _content;
   num? _author;
   String? _authorUsername;
   String? _postType;
@@ -64,10 +69,10 @@ class PostsDetailData {
   String? _createdAt;
   String? _updatedAt;
   num? _upvotes;
-  List<Comments>? _comments;
-PostsDetailData copyWith({  num? id,
+  List<PostDetailComments>? _comments;
+PostDetailData copyWith({  num? id,
   String? title,
-  String? content,
+  List<PostDetailContent>? content,
   num? author,
   String? authorUsername,
   String? postType,
@@ -75,8 +80,8 @@ PostsDetailData copyWith({  num? id,
   String? createdAt,
   String? updatedAt,
   num? upvotes,
-  List<Comments>? comments,
-}) => PostsDetailData(  id: id ?? _id,
+  List<PostDetailComments>? comments,
+}) => PostDetailData(  id: id ?? _id,
   title: title ?? _title,
   content: content ?? _content,
   author: author ?? _author,
@@ -90,7 +95,7 @@ PostsDetailData copyWith({  num? id,
 );
   num? get id => _id;
   String? get title => _title;
-  String? get content => _content;
+  List<PostDetailContent>? get content => _content;
   num? get author => _author;
   String? get authorUsername => _authorUsername;
   String? get postType => _postType;
@@ -98,13 +103,15 @@ PostsDetailData copyWith({  num? id,
   String? get createdAt => _createdAt;
   String? get updatedAt => _updatedAt;
   num? get upvotes => _upvotes;
-  List<Comments>? get comments => _comments;
+  List<PostDetailComments>? get comments => _comments;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = _id;
     map['title'] = _title;
-    map['content'] = _content;
+    if (_content != null) {
+      map['content'] = _content?.map((v) => v.toJson()).toList();
+    }
     map['author'] = _author;
     map['author_username'] = _authorUsername;
     map['post_type'] = _postType;
@@ -121,21 +128,21 @@ PostsDetailData copyWith({  num? id,
 }
 
 /// id : 1
-/// post : 2
+/// post : 1
 /// author : 1
 /// author_username : "Nanyian"
-/// content : "挺好的挺好的"
-/// created_at : "2025-05-08 16:42:39"
+/// content : "不错不错"
+/// created_at : "2025-05-10 12:22:29"
 /// parent_comment : null
 
-class Comments {
-  Comments({
-      num? id, 
-      num? post, 
-      num? author, 
-      String? authorUsername, 
-      String? content, 
-      String? createdAt, 
+class PostDetailComments {
+  PostDetailComments({
+      num? id,
+      num? post,
+      num? author,
+      String? authorUsername,
+      String? content,
+      String? createdAt,
       dynamic parentComment,}){
     _id = id;
     _post = post;
@@ -146,7 +153,7 @@ class Comments {
     _parentComment = parentComment;
 }
 
-  Comments.fromJson(dynamic json) {
+  PostDetailComments.fromJson(dynamic json) {
     _id = json['id'];
     _post = json['post'];
     _author = json['author'];
@@ -162,14 +169,14 @@ class Comments {
   String? _content;
   String? _createdAt;
   dynamic _parentComment;
-Comments copyWith({  num? id,
+PostDetailComments copyWith({  num? id,
   num? post,
   num? author,
   String? authorUsername,
   String? content,
   String? createdAt,
   dynamic parentComment,
-}) => Comments(  id: id ?? _id,
+}) => PostDetailComments(  id: id ?? _id,
   post: post ?? _post,
   author: author ?? _author,
   authorUsername: authorUsername ?? _authorUsername,
@@ -194,6 +201,40 @@ Comments copyWith({  num? id,
     map['content'] = _content;
     map['created_at'] = _createdAt;
     map['parent_comment'] = _parentComment;
+    return map;
+  }
+
+}
+
+/// type : "text"
+/// value : "..."
+
+class PostDetailContent {
+  PostDetailContent({
+      String? type,
+      String? value,}){
+    _type = type;
+    _value = value;
+}
+
+  PostDetailContent.fromJson(dynamic json) {
+    _type = json['type'];
+    _value = json['value'];
+  }
+  String? _type;
+  String? _value;
+PostDetailContent copyWith({  String? type,
+  String? value,
+}) => PostDetailContent(  type: type ?? _type,
+  value: value ?? _value,
+);
+  String? get type => _type;
+  String? get value => _value;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['type'] = _type;
+    map['value'] = _value;
     return map;
   }
 

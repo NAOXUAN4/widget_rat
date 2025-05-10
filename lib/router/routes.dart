@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:widget_rat/nav/nav.dart';
 
 
+import '../pages/PostDetailPage/view.dart';
 import '../pages/SearchPage/view.dart';
 import '../pages/HomePage/view.dart';
 import '../pages/CommunityPage/view.dart';
@@ -17,32 +18,41 @@ final GoRouter approutes = GoRouter(
       builder: (context, state) => GenNav(),
       routes: [
         GoRoute(
-          path: 'homePage',
+          path: '/home',
           name: RouteNames.homePage,
           builder: (context, state) => HomePage(),
         ),
         GoRoute(
-          path: 'forumPage',
+          path: '/community',
           name: RouteNames.forumPage,
           builder: (context, state) => CommunityPage(),
+
         ),
         GoRoute(
-          path: 'sectionsPage',
+          path: '/postdetail/:postId',
+          name: RouteNames.postdetailPage,
+          builder: (context, state){
+            final postId = state.pathParameters['postId'];
+            return PostDetailPage(postId: postId ?? "0");
+          }
+        ),
+        GoRoute(
+          path: '/sections',
           name: RouteNames.sectionsPage,
           builder: (context, state) => SectionsPage(),
         ),
         GoRoute(
-          path: 'myPage',
+          path: '/my',
           name: RouteNames.myPage,
           builder: (context, state) => MyPage(),
         ),
         GoRoute(
-          path: 'searchPage',
+          path: '/search',
           name: RouteNames.searchPage,
           builder: (context, state) => SearchPage(),
         ),
         GoRoute(
-          path: 'testPage',
+          path: '/test',
           name: RouteNames.testPage,
           builder: (context, state) => TestPage(),
         ),
@@ -53,10 +63,11 @@ final GoRouter approutes = GoRouter(
 
 class RouteNames {
   static const String nav = '/';
-  static const String homePage = "homePage";
-  static const String forumPage = "forumPage";
-  static const String searchPage = "searchPage";
-  static const String sectionsPage = "sectionsPage";
-  static const String myPage = "myPage";
-  static const String testPage = "testPage";
+  static const String homePage = "/home";
+  static const String forumPage = "/community";
+  static const String postdetailPage = "/postdetail";
+  static const String searchPage = "/search";
+  static const String sectionsPage = "/sections";
+  static const String myPage = "/my";
+  static const String testPage = "/test";
 }

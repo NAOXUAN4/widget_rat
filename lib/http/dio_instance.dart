@@ -35,7 +35,7 @@ class DioInstance{
       contentType: contentType ?? Headers.formUrlEncodedContentType,
     );
     _dio.interceptors.add(AuthInterceptor());   //先添加cookie拦截器，防止后面拦截器污染
-    _dio.interceptors.add(PrintLogInterceptor());
+    // _dio.interceptors.add(PrintLogInterceptor());
     // _dio.interceptors.add(ResponseInterceptor());
 
   }

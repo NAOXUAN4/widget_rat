@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:widget_rat/pages/CommunityPage/viewmodel.dart';
@@ -9,6 +10,7 @@ import 'package:widget_rat/pages/CommunityPage/widget/avator_Container.dart';
 import 'package:widget_rat/widgets/capsuleTags/capsule_tags.dart';
 
 import '../../common/style/theme.dart';
+import '../../router/routes.dart';
 
 class CommunityPage extends StatefulWidget {
   @override
@@ -42,6 +44,13 @@ class _CommunityPageState extends State<CommunityPage> {
         title: Text("Community"),
         actions: [
           IconButton(
+            icon: Icon(Icons.mode_edit_outline_outlined),
+            color: Theme.of(context).colorScheme.secondary,
+            onPressed: () {
+              showToast("发布");
+            },
+          ),
+          IconButton(
             icon: Icon(Icons.search_rounded),
             onPressed: () {
               showToast("搜索");
@@ -55,46 +64,49 @@ class _CommunityPageState extends State<CommunityPage> {
           ),
         ],
       ),
-      body: Consumer(
-        builder: (context,ref,__) {
-          return SmartRefresher(    ///  下拉刷新
-            controller: _refreshController,
-            enablePullUp: true,
-            enablePullDown: true,
-            header: MaterialClassicHeader(),
-            footer: ClassicFooter(),
-            onLoading: () async{
-              await ref.read(ComListStateNotifierProvider.notifier).fetchPostsList(isRefresh: false).then((value) {
-                  _refreshController.loadComplete();
-                });
-            },
-            onRefresh: () async{
-              await ref.read(ComListStateNotifierProvider.notifier).fetchPostsList(isRefresh: true).then((onValue){
-                _refreshController.refreshCompleted();
-              });
-            },
-
-            child: SafeArea(    //使用safe_area，防止顶部导航栏被遮挡
-              child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(top: 2.sp),
-                        height: 80.sp, // 根据需要调整高度
-                        child: Center(child: Text("Following Bar"))
-                      ),
-                      _ListView(),
-                    ],
-                  )
-              )
+      body: SafeArea(
+        child: Stack(
+          children: [
+            Consumer(
+              builder: (context,ref,__) {
+                return SmartRefresher(    ///  下拉刷新
+                  controller: _refreshController,
+                  enablePullUp: true,
+                  enablePullDown: true,
+                  header: MaterialClassicHeader(),
+                  footer: ClassicFooter(),
+                  onLoading: () async{
+                    await ref.read(ComListStateNotifierProvider.notifier).fetchPostsList(isRefresh: false).then((value) {
+                        _refreshController.loadComplete();
+                      });
+                  },
+                  onRefresh: () async{
+                    await ref.read(ComListStateNotifierProvider.notifier).fetchPostsList(isRefresh: true).then((onValue){
+                      _refreshController.refreshCompleted();
+                    });
+                  }, //使用safe_area，防止顶部导航栏被遮挡
+                    child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(top: 2.sp),
+                              height: 80.sp, // 根据需要调整高度
+                              child: Center(child: Text("Following Bar"))
+                            ),
+                            _PostsListView(),
+                          ],
+                        )
+                    )
+                );
+              }
             ),
-          );
-        }
-      )
+          ],
+        ),
+      ),
     );
   }
 
-  Widget _ListView(){
+  Widget _PostsListView(){
     return Consumer(
       builder: ( _, ref, __) {
         final comListState = ref.watch(ComListStateNotifierProvider);
@@ -121,6 +133,7 @@ class _CommunityPageState extends State<CommunityPage> {
       child: Column(
         children: [
           _ListItemTitle(
+            postid: comListState.postsList[index].id ?? 0,
             title: comListState.postsList[index].title ?? "Null",
             createdAt: comListState.postsList[index].createdAt ?? "Null",
             postType: comListState.postsList[index].postType ?? "Null",
@@ -132,7 +145,8 @@ class _CommunityPageState extends State<CommunityPage> {
     );
   }
 
-  Widget _ListItemTitle({required String title,        /// 标题
+  Widget _ListItemTitle({ required num postid,
+                          required String title,        /// 标题
                           required String createdAt,   /// 创建时间
                           required String postType,     /// 分类
                           required String avatorUrl         /// 头像
@@ -164,83 +178,90 @@ class _CommunityPageState extends State<CommunityPage> {
               foregroundImage: NetworkImage(avatorUrl),
             ),   //  用户头像图片
           ),   // 头像
-          Container(
-            height: 70.sp,
-            width: 250.sp,
-            margin: EdgeInsets.symmetric(horizontal: 5.sp),
-            decoration: BoxDecoration(
-              // color: Colors.green,
-            ),
+          GestureDetector(
+            onTap: () {
+              context.push(
+                  '${RouteNames.postdetailPage}/${postid}'
+              );
+            },
             child: Container(
-              child: Column(
-                children: [
-                  Container(
-                    width: double.infinity,
+              height: 70.sp,
+              width: 250.sp,
+              margin: EdgeInsets.symmetric(horizontal: 5.sp),
+              decoration: BoxDecoration(
+                // color: Colors.green,
+              ),
+              child: Container(
+                child: Column(
+                  children: [
+                    Container(
+                      width: double.infinity,
 
-                    decoration: BoxDecoration(
-                      // color: Colors.amber,
-                    ),
-                    margin: EdgeInsets.only(top: 15.sp,bottom: 5.sp),
-                    child: Text(
-                        title,
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  Container(
-                    height: 18.sp,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      // color: Colors.red
-                    ),
-                    child: Row(           // 分类 + 时间
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(               // 胶囊标签
-                            child: CapsuleTags(
-                              tags: [
-                                "${postType}",
-                              ],             // TODO：需要考虑最多标签数
-                              tagsIcons: [
-                                tagColorIconenum.tagStyleEnum[postType]![1],
-                              ],
-                              tagColors: [
-                                tagColorIconenum.tagStyleEnum[postType]![0],
-                              ],
-                              fixedHeight: 15.sp,
-                              textStyle: TextStyle(
-                                fontSize: 5.sp,
-                                color: Theme.of(context).colorScheme.onSurface,
-                              ),
-                              borderRadius: 4.sp,
-                            )
-                        ),
-                        Container(        //  修改时间
-                          margin: EdgeInsets.symmetric(vertical: 2.sp),
-                          width: 100.sp,
-                          height: 18.sp,
-                          decoration: BoxDecoration(
-                            // color: Colors.yellow,
+                      decoration: BoxDecoration(
+                        // color: Colors.amber,
+                      ),
+                      margin: EdgeInsets.only(top: 15.sp,bottom: 5.sp),
+                      child: Text(
+                          title,
+                          style: TextStyle(
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.bold,
                           ),
-                          child:  Text(
-                              "重新编辑于 ${createdAt}",
-                              style: TextStyle(
-                                fontSize: 10.sp,
-                                color: Theme.of(context).colorScheme.onSurfaceVariant,
-                              ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ],
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
-                  )
-                ]
-              )
+                    Container(
+                      height: 18.sp,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        // color: Colors.red
+                      ),
+                      child: Row(           // 分类 + 时间
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(               // 胶囊标签
+                              child: CapsuleTags(
+                                tags: [
+                                  "${postType}",
+                                ],             // TODO：需要考虑最多标签数
+                                tagsIcons: [
+                                  tagColorIconenum.tagStyleEnum[postType]![1],
+                                ],
+                                tagColors: [
+                                  tagColorIconenum.tagStyleEnum[postType]![0],
+                                ],
+                                fixedHeight: 15.sp,
+                                textStyle: TextStyle(
+                                  fontSize: 5.sp,
+                                  color: Theme.of(context).colorScheme.onSurface,
+                                ),
+                                borderRadius: 4.sp,
+                              )
+                          ),
+                          Container(        //  修改时间
+                            margin: EdgeInsets.symmetric(vertical: 2.sp),
+                            width: 100.sp,
+                            height: 18.sp,
+                            decoration: BoxDecoration(
+                              // color: Colors.yellow,
+                            ),
+                            child:  Text(
+                                "重新编辑于 ${createdAt}",
+                                style: TextStyle(
+                                  fontSize: 10.sp,
+                                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                                ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ]
+                )
+              ),
             ),
           ),      // 标题分类
           Container(
