@@ -74,6 +74,7 @@ dependencies:
   cookie_jar: ^4.0.8
   dio_cookie_manager: ^3.2.0
   path_provider: ^2.1.5
+  gpt_markdown: ^1.0.18
 
 dev_dependencies:
   flutter_test:

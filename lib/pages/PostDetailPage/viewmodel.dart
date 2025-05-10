@@ -6,17 +6,18 @@ class PostDetailState {
   final PostDetailData postDetail;   ///
   final String postTitle;    /// 文章标题
   final List<PostDetailComments> postComments;  /// 评论列表
-  final List<PostDetailContent> postContent;    /// 文章内容
+  final List<PostDetailContent> postContents;    /// 文章内容
   final bool isLoading;
 
   PostDetailState({required this.postDetail,required this.postTitle,
-    required this.postComments,required this.postContent,
+    required this.postComments,
+    required this.postContents,
       required this.isLoading});
 }
 
 class PostDetailStateNotifier extends StateNotifier<PostDetailState> {
   PostDetailStateNotifier(postId) : super(PostDetailState(postDetail: PostDetailData(),
-     postTitle: "", postComments: [], postContent: [] ,isLoading: true)){
+     postTitle: "", postComments: [], postContents: [] ,isLoading: true)){
     initPostDetailState(postId);
   }
 
@@ -26,7 +27,7 @@ class PostDetailStateNotifier extends StateNotifier<PostDetailState> {
 
   Future<void> fetchPostDetail(String postId) async {
     state = PostDetailState(postDetail: PostDetailData(),
-        postTitle: "", postComments: [], postContent: [] ,isLoading: true);
+        postTitle: "", postComments: [], postContents: [] ,isLoading: true);
 
     final response = await Api.instance.getPostsDetail(postId);
     if (response != null) {
@@ -34,7 +35,7 @@ class PostDetailStateNotifier extends StateNotifier<PostDetailState> {
       state = PostDetailState(postDetail: _postDetail_Tmp,
           postTitle: _postDetail_Tmp.title ?? "",
           postComments: _postDetail_Tmp.comments ?? [],
-          postContent: _postDetail_Tmp.content ?? [],isLoading: true);
+          postContents: _postDetail_Tmp.content ?? [], isLoading: false);
     }
   }
 }

@@ -207,7 +207,7 @@ class _CommunityPageState extends State<CommunityPage> {
                             fontSize: 14.sp,
                             fontWeight: FontWeight.bold,
                           ),
-                        maxLines: 2,
+                        maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
