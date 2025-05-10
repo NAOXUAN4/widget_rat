@@ -24,7 +24,7 @@ class PostDetailPage extends StatefulWidget {
 }
 
 class _PostDetailPageState extends State<PostDetailPage> {
-
+  final TextEditingController _commentController = TextEditingController();
 
   @override
   void initState() {
@@ -67,13 +67,10 @@ class _PostDetailPageState extends State<PostDetailPage> {
         ),
       ),
       bottomNavigationBar: Container(   /// 底部栏： 点赞收藏评论
-        height: 30.sp,
+        height: 45.sp,
         color: Theme.of(context).colorScheme.surface,
         child: Center(
-          child: Text(
-            "这是一个底部栏",
-            style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
-          ),
+          child: _DetailBottomBar()
         ),
       )
     );
@@ -224,6 +221,57 @@ class _PostDetailPageState extends State<PostDetailPage> {
                 );
             }
       }),
+    );
+  }
+
+
+  Widget _DetailBottomBar() {
+    return  Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+      ),
+      child: Row(             /// 底部栏 ： 评论 + 点赞 + 收藏
+        children: [
+          Container(
+            width: 240.sp,
+            height: 30.sp,
+            margin: EdgeInsets.only(left: 10.sp,bottom: 2.sp),
+            child: TextField(
+              controller: _commentController,
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Theme.of(context).colorScheme.onSurfaceVariant.withAlpha(60),
+                enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(5.r),
+                    borderSide: BorderSide(color: Colors.transparent)),  //未激活状态
+                focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(5.r),
+                    borderSide: BorderSide(color: Colors.transparent)),
+                  )
+              ),
+            ),
+          SizedBox(width: 30.sp),
+          Container(
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.surface,
+            ),
+            width: 30.sp,
+            height: 50.sp,
+            child: Icon(Icons.star_rate_rounded,
+              size: 32.sp,
+              color: Theme.of(context).colorScheme.onSurfaceVariant.withAlpha(80),),
+          ),
+          Container(
+            margin: EdgeInsets.only(left: 6.sp,top: 2.sp),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.surface,
+            ),
+            width: 30.sp,
+            height: 50.sp,
+            child: Icon(Icons.messenger,
+              size: 22.sp,
+              color: Theme.of(context).colorScheme.onSurfaceVariant.withAlpha(80),),
+          )
+        ]
+      )
     );
   }
 
