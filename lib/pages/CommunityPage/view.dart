@@ -194,12 +194,11 @@ class _CommunityPageState extends State<CommunityPage> {
                 child: Column(
                   children: [
                     Container(
-                      width: double.infinity,
-
+                      width: 200.sp,
                       decoration: BoxDecoration(
                         // color: Colors.amber,
                       ),
-                      margin: EdgeInsets.only(top: 15.sp,bottom: 5.sp),
+                      margin: EdgeInsets.only(top: 15.sp,bottom: 5.sp,right: 80.sp),
                       child: Text(
                           title,
                           style: TextStyle(
