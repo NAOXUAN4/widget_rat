@@ -1,6 +1,7 @@
 //api请求统一解析
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:widget_rat/api/dataClass/Oss_BaseUrl_data.dart';
 
 import 'package:widget_rat/api/dataClass/Posts_List_data.dart';
 import 'package:widget_rat/api/dataClass/UsersMe_Res_data.dart';
@@ -113,6 +114,21 @@ class Api {
       return false;
     }//拦截器会返回true或false
   }
+
+  /// GET "/api/oss/baseUrl/" 获取OSS储存Url
+  Future<dynamic>ossBaseUrl()async{  //登录
+    Response response = await DioInstance.instance().get(
+        path: "api/oss/baseUrl/");
+    // logger.d("${response.data}");
+    try{ //若报错肯定进入过拦截器的错误处理
+      response.data["errorCode"] == 0;           //没被修改过，还存在"errcode
+      return OssBaseUrlData.fromJson(response.data);
+    }
+    catch(e){
+      return false;
+    }//拦截器会返回true或false
+  }
+
 
 
   //  Future<dynamic>logout()async{  //登录

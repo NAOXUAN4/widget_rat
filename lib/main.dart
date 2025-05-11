@@ -8,18 +8,26 @@ import 'package:oktoast/oktoast.dart';
 import 'package:widget_rat/router/routes.dart';
 import 'package:widget_rat/common/style/theme.dart';
 import 'package:widget_rat/utils/constants.dart';
+import 'package:widget_rat/utils/global.dart';
 
+import 'api/api.dart';
+import 'api/dataClass/Oss_BaseUrl_data.dart';
 import 'http/dio_instance.dart';
 
-
-
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(  //设置状态栏透明
     statusBarColor: Colors.transparent,
     systemNavigationBarColor: Colors.transparent,
     statusBarIconBrightness: Brightness.dark,
   ));
   DioInstance.instance().initDio(baseUrl: Constants.baseUrl);
+  final ossResult = await Api.instance.ossBaseUrl();
+  if (ossResult is OssBaseUrlData) {
+    Global.ossUrl = ossResult.ossBaseUrl;
+    Global.ossAvatarUrl = ossResult.ossAvatarUrl;
+  }
+
   runApp(ProviderScope(child: const MyApp()));     // ProviderScope 包裹
 }
 

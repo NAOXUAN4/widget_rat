@@ -51,6 +51,11 @@ class ComListStateNotifier extends StateNotifier<ComListState> {
       state = ComListState(postsList: state.postsList, isLoading: false);
     }
   }
+
+
+
+
+
 }
 
 final ComListStateNotifierProvider = StateNotifierProvider<ComListStateNotifier, ComListState>(

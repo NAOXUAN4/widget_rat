@@ -24,6 +24,10 @@ class CounterStateNotifier extends StateNotifier<int> {
     var response = await Api.instance.getPostsList(1);
     logger.d("${response?[0].id}");
   }
+  Future getOssBaseUrlTest() async{
+    var response = await Api.instance.ossBaseUrl();
+    logger.d("${response}");
+  }
 
 
   Future getPostsDetailTest() async{

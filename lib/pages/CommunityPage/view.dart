@@ -6,7 +6,6 @@ import 'package:go_router/go_router.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:widget_rat/pages/CommunityPage/viewmodel.dart';
-import 'package:widget_rat/pages/CommunityPage/widget/avator_Container.dart';
 import 'package:widget_rat/widgets/capsuleTags/capsule_tags.dart';
 
 import '../../common/style/theme.dart';
@@ -57,7 +56,7 @@ class _CommunityPageState extends State<CommunityPage> {
             },
           ),
           IconButton(
-            icon: Icon(Icons.messenger_outline_sharp),
+            icon: Icon(Icons.mail_outline_outlined),
             onPressed: () {
               showToast("信息");
             },
