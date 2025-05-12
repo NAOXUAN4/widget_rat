@@ -29,6 +29,13 @@ class CounterStateNotifier extends StateNotifier<int> {
     logger.d("${response}");
   }
 
+  Future postPostsTest() async{
+    PostDetailContent postDetailContent = PostDetailContent(type:"text", value: "##test  test");
+    List<Map<String, dynamic>> postDetailContentList = [postDetailContent.toJson(),postDetailContent.toJson()];
+    var response = await Api.instance.postPosts("test", postDetailContentList, "discussion");
+    logger.d("${response}");
+  }
+
 
   Future getPostsDetailTest() async{
     var response = await Api.instance.getPostsDetail("2");

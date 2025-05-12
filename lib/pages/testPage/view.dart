@@ -54,6 +54,12 @@ class TestPage extends StatelessWidget{
                   },
                   child: Text("OssBaseUrl"),
                 ),
+                ElevatedButton(
+                  onPressed: (){
+                    ref.read(counterNotifierProvider.notifier).postPostsTest();
+                  },
+                  child: Text("postPosts"),
+                ),
 
 
 

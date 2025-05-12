@@ -1,4 +1,6 @@
 //api请求统一解析
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:widget_rat/api/dataClass/Oss_BaseUrl_data.dart';
@@ -61,6 +63,23 @@ class Api {
 
   }
 
+  ///POST "/api/posts/" 发表文章
+  Future<dynamic>postPosts(String? title,List<Map<String, dynamic>> content,String? type)async{
+    Response response = await DioInstance.instance().post(   //发送Post传参请求
+      path: "api/posts/",
+      data: {
+        "title": title,
+        "content": content,
+        "post_type":type
+      },
+      options:  Options(
+        contentType: "application/json"
+      ),
+    );
+    PostDetailData postsDetailData = PostDetailData.fromJson(response.data);
+    return postsDetailData;
+  }
+
   //
   // Future<List<HotKeyData>?>getHotKeyData()async{
   //   Response response = await DioInstance.instance().get(
@@ -90,7 +109,7 @@ class Api {
   Future<dynamic>login(String? username,String? password)async{
     Response response = await DioInstance.instance().post(        //发送Post传参请求
         path: "api/users/login/",
-      data: {"username":username,"password":password,});
+        data: {"username":username,"password":password,});
     // logger.d("${response.data}");
     try{ //若报错肯定进入过拦截器的错误处理
       response.data["errorCode"] == 0;                          //没被修改过，还存在"errcode
