@@ -46,7 +46,7 @@ class _CommunityPageState extends State<CommunityPage> {
             icon: Icon(Icons.mode_edit_outline_outlined),
             color: Theme.of(context).colorScheme.secondary,
             onPressed: () {
-              showToast("发布");
+              context.push(RouteNames.createpost);
             },
           ),
           IconButton(

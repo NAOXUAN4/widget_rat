@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:widget_rat/nav/nav.dart';
 
-
+import '../pages/CreatePostPage/view.dart';
 import '../pages/PostDetailPage/view.dart';
 import '../pages/SearchPage/view.dart';
 import '../pages/HomePage/view.dart';
@@ -37,6 +37,11 @@ final GoRouter approutes = GoRouter(
           }
         ),
         GoRoute(
+          path: '/createpost',          /// 发帖
+          name: RouteNames.createpost,
+          builder: (context, state) => CreatePostPage(),
+        ),
+        GoRoute(
           path: '/sections',
           name: RouteNames.sectionsPage,
           builder: (context, state) => SectionsPage(),
@@ -66,6 +71,7 @@ class RouteNames {
   static const String homePage = "/home";
   static const String forumPage = "/community";
   static const String postdetailPage = "/postdetail";
+  static const String createpost = "/createpost";
   static const String searchPage = "/search";
   static const String sectionsPage = "/sections";
   static const String myPage = "/my";
