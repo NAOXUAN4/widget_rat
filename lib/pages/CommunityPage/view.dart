@@ -43,8 +43,8 @@ class _CommunityPageState extends State<CommunityPage> {
         title: Text("Community"),
         actions: [
           IconButton(
-            icon: Icon(Icons.mode_edit_outline_outlined),
-            color: Theme.of(context).colorScheme.secondary,
+            icon: Icon(Icons.post_add_outlined),
+            color: Theme.of(context).colorScheme.primary,
             onPressed: () {
               context.push(RouteNames.createpost);
             },

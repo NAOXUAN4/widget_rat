@@ -27,13 +27,18 @@ class PostDetailPage extends StatefulWidget {
 
 class _PostDetailPageState extends State<PostDetailPage> {
   final TextEditingController _commentController = TextEditingController();
+  late ScrollController _scrollController = ScrollController();
+  final GlobalKey _commentSectionKey = GlobalKey();  // 定位评论区位置
 
   @override
   void initState() {
     super.initState();
+    _scrollController = ScrollController();
   }
 
   void dispose() {
+    _commentController.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -42,11 +47,18 @@ class _PostDetailPageState extends State<PostDetailPage> {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
+
+          ), onPressed: () { context.pop(); },
+        ),
         actions: [
           IconButton(
             icon: Icon(
                 Icons.more_vert,
-                color: Theme.of(context).colorScheme.primary
+                color: Theme.of(context).colorScheme.onSurfaceVariant
             ),
             onPressed: () {
               showToast("更多");
@@ -55,6 +67,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
         ],
       ),
       body: SingleChildScrollView(  /// 帖子内容
+        controller: _scrollController,   //定义控制器用于滚动到评论区
         child: Consumer(
           builder: (context, ref, __) {
             final PostDetailState postDetialstate = ref.watch(postDetailNotifierProvider(widget.postId));
@@ -112,6 +125,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
                   content: postDetialstate.postContents,
                 ),
                 _DetailComment(
+                  key: _commentSectionKey,
                   commentList: postDetialstate.postComments ?? [],
                 ),
               ]
@@ -275,8 +289,9 @@ class _PostDetailPageState extends State<PostDetailPage> {
     );
   }
 
-  Widget _DetailComment({required List<PostDetailComments> commentList}) {
+  Widget _DetailComment({Key? key, required List<PostDetailComments> commentList}) {
     return Container(
+      key: key,  // 植入key
       child: ListView.builder(
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
@@ -406,22 +421,37 @@ class _PostDetailPageState extends State<PostDetailPage> {
               size: 28.sp,
               color: Theme.of(context).colorScheme.onSurfaceVariant.withAlpha(80),),
           ),
-          Container(
-            margin: EdgeInsets.only(left: 6.sp,top: 1.sp),
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.surface,
+          GestureDetector(   /// 定位到评论按钮
+            onTap: (){
+              scrollToCommentSection();
+            },
+            child: Container(
+              margin: EdgeInsets.only(left: 6.sp,top: 1.sp),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.surface,
+              ),
+              width: 30.sp,
+              height: 50.sp,
+              child: Icon(Icons.messenger_outline_rounded,
+                size: 24.sp,
+                color: Theme.of(context).colorScheme.primary.withAlpha(80),),
             ),
-            width: 30.sp,
-            height: 50.sp,
-            child: Icon(Icons.messenger,
-              size: 24.sp,
-              color: Theme.of(context).colorScheme.onSurfaceVariant.withAlpha(80),),
-          )
+          ),
         ]
       )
     );
   }
 
+  void scrollToCommentSection() {   /// 通过 GlobalKey&&Scrollable.ensureVisible 定位评论区
+    if (_commentSectionKey.currentContext == null) return;
+
+    Scrollable.ensureVisible(
+      _commentSectionKey.currentContext!,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeOut,
+      alignment: 0.1, // 距顶部 10% 的位置显示目标组件
+    );
+  }
 
 
 }

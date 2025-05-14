@@ -40,9 +40,16 @@ class _CreatePostPageState extends State<CreatePostPage> {
         return Scaffold(
           resizeToAvoidBottomInset: true,
           appBar: AppBar(
+            leading: IconButton(
+              icon: Icon(
+                Icons.arrow_back_ios_new_rounded,
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+
+              ), onPressed: () { context.pop(); },
+            ),
            actions: [
              IconButton(
-               icon: Icon(Icons.send_sharp,color: Theme.of(context).colorScheme.primary,),
+               icon: Icon(Icons.done,color: Theme.of(context).colorScheme.primary,size: 24.sp,),
                onPressed: () {
                  ref.read(createPostStateNotifierProvider.notifier).postPosts();
                  context.pop(context);
@@ -153,7 +160,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
                       onChanged: (value) {
                         ref.read(createPostStateNotifierProvider.notifier).updateContent(_controller_content.text);
                       },
-                      enableToolBar: false,
+                      enableToolBar: true,
                       controller: _controller_content,
                       emojiConvert: true,
                       showEmojiSelection: true,

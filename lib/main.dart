@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
 import 'package:oktoast/oktoast.dart';
 import 'package:widget_rat/router/routes.dart';
 import 'package:widget_rat/common/style/theme.dart';
