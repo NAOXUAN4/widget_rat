@@ -76,7 +76,12 @@ dependencies:
   path_provider: ^2.1.5
   gpt_markdown: ^1.0.18
   markdown: ^7.3.0
-  markdown_editor_plus: ^0.2.15
+
+  expandable:  ^5.0.1
+  flutter_markdown: ^0.7.7+1
+  font_awesome_flutter: ^10.8.0
+
+#  markdown_editor_plus: ^0.2.15
 
 dev_dependencies:
   flutter_test:

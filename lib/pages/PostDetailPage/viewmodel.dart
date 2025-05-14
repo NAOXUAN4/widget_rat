@@ -40,13 +40,12 @@ class PostDetailStateNotifier extends StateNotifier<PostDetailState> {
   }
 }
 
-final postDetailNotifierProvider = StateNotifierProvider.family<
+final postDetailNotifierProvider = AutoDisposeStateNotifierProvider.family<
     PostDetailStateNotifier,
     PostDetailState,
     String>(
       (ref, postId) {
     final notifier = PostDetailStateNotifier(postId);
-    ref.onDispose(() {});
     return notifier;
   },
 );
