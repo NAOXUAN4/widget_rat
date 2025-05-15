@@ -80,6 +80,21 @@ class Api {
     return postsDetailData;
   }
 
+  /// POST /api/comments/ 发评论
+  Future<dynamic>createComment(int postId,String content)async{
+    Response response = await DioInstance.instance().post(
+      path: "api/comments/",
+      data: {
+        "post":postId,
+        "content":content
+      },
+      options:  Options(
+        contentType: "application/json"
+      ),
+    );
+    return PostDetailComments.fromJson(response.data);   // Comments数据格式与PostDetail中的一致
+  }
+
   //
   // Future<List<HotKeyData>?>getHotKeyData()async{
   //   Response response = await DioInstance.instance().get(

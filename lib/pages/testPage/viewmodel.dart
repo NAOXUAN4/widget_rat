@@ -28,6 +28,10 @@ class CounterStateNotifier extends StateNotifier<int> {
     var response = await Api.instance.ossBaseUrl();
     logger.d("${response}");
   }
+  Future getcreateComments() async{
+    var response = await Api.instance.createComment(1, "感觉不是很好？？");
+    logger.d("${response}");
+  }
 
   Future postPostsTest() async{
     PostDetailContent postDetailContent = PostDetailContent(type:"text", value: "##test  test");

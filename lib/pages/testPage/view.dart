@@ -60,9 +60,12 @@ class TestPage extends StatelessWidget{
                   },
                   child: Text("postPosts"),
                 ),
-
-
-
+                ElevatedButton(
+                  onPressed: (){
+                    ref.read(counterNotifierProvider.notifier).getcreateComments();
+                  },
+                  child: Text("createComments")
+                )
               ],
             ),
           );

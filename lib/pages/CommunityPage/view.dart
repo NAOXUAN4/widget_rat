@@ -22,6 +22,7 @@ class CommunityPage extends StatefulWidget {
 class _CommunityPageState extends State<CommunityPage> {
   static const bool hasPic = false;    // 是否有图片
   late final RefreshController _refreshController  = RefreshController();       //下拉刷新控制器
+  late final TextEditingController _searchInputController = TextEditingController();
 
   @override
   void initState() {
@@ -31,6 +32,7 @@ class _CommunityPageState extends State<CommunityPage> {
   @override
   void dispose() {
     _refreshController.dispose();
+    _searchInputController.dispose();
     super.dispose();
   }
 
@@ -87,10 +89,40 @@ class _CommunityPageState extends State<CommunityPage> {
                     child: SingleChildScrollView(
                         child: Column(
                           children: [
-                            Container(
-                              margin: EdgeInsets.only(top: 2.sp),
-                              height: 80.sp, // 根据需要调整高度
-                              child: Center(child: Text("Following Bar"))
+                            Container(                   /// PostList 上方栏
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.surface,
+                              ),
+                              height: 30.sp, // 根据需要调整高度
+                              padding: EdgeInsets.only(top: 5.sp, right: 10.sp, bottom: 2.sp),
+                              child: Row(
+                                children: [
+                                  Spacer(),
+                                  Container(               /// 换一批按钮
+                                    margin: EdgeInsets.only(left : 10.sp,right: 10.sp),
+                                    height: 28.sp,
+                                    width: 70.sp,
+                                    decoration: BoxDecoration(
+                                      color: Theme.of(context).colorScheme.onSurfaceVariant.withAlpha(25),
+                                      // border: Border.all(color: Theme.of(context).colorScheme.primary.withAlpha(60), width: 1.sp),
+                                      borderRadius: BorderRadius.circular(15.sp),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.autorenew_rounded,
+                                          size: 15.sp,
+                                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                                        ),
+                                        Text("Shuffle",style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant,),)
+                                      ],
+                                    ),
+                                  ),
+
+
+                                ],
+                              )
                             ),
                             _PostsListView(),
                           ],
@@ -245,7 +277,7 @@ class _CommunityPageState extends State<CommunityPage> {
                               // color: Colors.yellow,
                             ),
                             child:  Text(
-                                "重新编辑于 ${createdAt}",
+                                "${createdAt}",
                                 style: TextStyle(
                                   fontSize: 10.sp,
                                   color: Theme.of(context).colorScheme.onSurfaceVariant,
