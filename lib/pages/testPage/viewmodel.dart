@@ -29,7 +29,7 @@ class CounterStateNotifier extends StateNotifier<int> {
     logger.d("${response}");
   }
   Future getcreateComments() async{
-    var response = await Api.instance.createComment(1, "感觉不是很好？？");
+    var response = await Api.instance.createComment("1", "感觉不是很好？？");
     logger.d("${response}");
   }
 

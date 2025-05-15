@@ -13,6 +13,7 @@ class PostDetailState {
     required this.postComments,
     required this.postContents,
       required this.isLoading});
+
 }
 
 class PostDetailStateNotifier extends StateNotifier<PostDetailState> {
@@ -38,6 +39,7 @@ class PostDetailStateNotifier extends StateNotifier<PostDetailState> {
           postContents: _postDetail_Tmp.content ?? [], isLoading: false);
     }
   }
+
 }
 
 final postDetailNotifierProvider = AutoDisposeStateNotifierProvider.family<
@@ -48,4 +50,61 @@ final postDetailNotifierProvider = AutoDisposeStateNotifierProvider.family<
     final notifier = PostDetailStateNotifier(postId);
     return notifier;
   },
+);
+
+
+class CreateCommentsState{
+  CreateCommentsState({
+    this.isLoading = false,
+    this.CommentContents = ""
+  });
+
+  final bool isLoading;
+  final String ? CommentContents;
+
+  CreateCommentsState copyWith({
+    bool? isLoading,
+    String? CommentContents,
+  }) {
+    return CreateCommentsState(
+     isLoading: isLoading ?? this.isLoading
+          ? true
+          : false,
+      CommentContents: CommentContents ?? this.CommentContents,
+    );
+  }
+}
+
+class CreateCommentsStateNotifier extends StateNotifier<CreateCommentsState> {
+  CreateCommentsStateNotifier() : super(CreateCommentsState());
+
+  void updateCommentContents(String CommentContents) {    /// 更新评论输入
+    state = state.copyWith(CommentContents: CommentContents);
+  }
+
+  Future<void> submitComment(String postId) async {
+    print(state.CommentContents);
+    if (state.CommentContents!.isEmpty) {
+      return;
+    }
+    state = state.copyWith(isLoading: true);
+    try {
+      var response = await Api.instance.createComment(postId, state.CommentContents!);
+      if (response.code == 0) {
+        state = state.copyWith(isLoading: false);
+        state = state.copyWith(CommentContents: "");
+        return;
+      }
+    }catch(e) {
+      state = state.copyWith(isLoading: false);
+      return;
+    }
+  }
+
+
+
+}
+
+final CreateCommentsStateNotifierProvider = AutoDisposeStateNotifierProvider<CreateCommentsStateNotifier, CreateCommentsState>(
+      (ref) => CreateCommentsStateNotifier(),
 );

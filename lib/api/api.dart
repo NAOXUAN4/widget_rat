@@ -81,7 +81,7 @@ class Api {
   }
 
   /// POST /api/comments/ 发评论
-  Future<dynamic>createComment(int postId,String content)async{
+  Future<dynamic>createComment(String postId,String content)async{
     Response response = await DioInstance.instance().post(
       path: "api/comments/",
       data: {

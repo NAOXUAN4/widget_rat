@@ -81,12 +81,17 @@ class _PostDetailPageState extends State<PostDetailPage> {
           }
         ),
       ),
-      bottomNavigationBar: Container(   /// 底部栏： 点赞收藏评论
-        height: 45.sp,
-        color: Theme.of(context).colorScheme.surface,
-        child: Center(
-          child: _DetailBottomBar()
-        ),
+      bottomSheet: Consumer(
+        builder: (context, ref, __) {
+          final PostDetailState postDetialstate = ref.watch(postDetailNotifierProvider(widget.postId));
+          return Container(   /// 底部栏： 点赞收藏评论
+            height: 45.sp,
+            color: Theme.of(context).colorScheme.surface,
+            child: Center(
+              child: _DetailBottomBar(commentList: postDetialstate.postComments ?? [])
+            ),
+          );
+        }
       )
     );
   }
@@ -128,6 +133,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
                   key: _commentSectionKey,
                   commentList: postDetialstate.postComments ?? [],
                 ),
+                SizedBox(height: 40.sp)   // 补偿底部栏
               ]
             )
           )
@@ -387,55 +393,97 @@ class _PostDetailPageState extends State<PostDetailPage> {
     );
   }
 
-  Widget _DetailBottomBar() {
+  Widget _DetailBottomBar({required List<PostDetailComments> commentList}) {
     return  Container(
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
       ),
       child: Row(             /// 底部栏 ： 评论 + 点赞 + 收藏
         children: [
-          Container(
-            width: 240.sp,
-            height: 23.sp,
-            margin: EdgeInsets.only(left: 10.sp,bottom: 2.sp),
-            child: TextField(
-              controller: _commentController,
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Theme.of(context).colorScheme.onSurfaceVariant.withAlpha(60),
-                enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(5.r),
-                    borderSide: BorderSide(color: Colors.transparent)),  //未激活状态
-                focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(5.r),
-                    borderSide: BorderSide(color: Colors.transparent)),
-                  )
-              ),
-            ),
-          SizedBox(width: 30.sp),
-          Container(
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.surface,
-            ),
-            width: 30.sp,
-            height: 50.sp,
-            child: Icon(Icons.bookmark,
-              size: 28.sp,
-              color: Theme.of(context).colorScheme.onSurfaceVariant.withAlpha(80),),
+          Consumer(
+            builder: (context, ref, _) {
+              final commentContentsState = ref.watch(CreateCommentsStateNotifierProvider).CommentContents;
+              return Container(          /// 评论输入
+                width: 240.sp,
+                height: 30.sp,
+                // padding: EdgeInsets.only(bottom: 16.sp),
+                margin: EdgeInsets.only(left: 10.sp,bottom: 2.sp),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant.withAlpha(80),
+                  borderRadius: BorderRadius.circular(5.sp),
+                ),
+
+                child: TextField(
+                  onChanged: (value) {    // 更新评论输入
+                  ref.read(CreateCommentsStateNotifierProvider.notifier).updateCommentContents(_commentController.text);
+                  },
+                  onSubmitted:  (value){  // 提交评论
+                    ref.read(CreateCommentsStateNotifierProvider.notifier).submitComment(widget.postId).then((onValue){
+                      _commentController.clear();
+                      ref.read(postDetailNotifierProvider(widget.postId).notifier).fetchPostDetail(widget.postId); // 更新评论列表
+                    });
+
+                  },
+                  cursorHeight: 20.sp,
+                  style: TextStyle(
+                    fontSize: 20.sp,
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+                  controller: _commentController,
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.only(left: 10.sp),
+                    // filled: true,
+                    // fillColor: Theme.of(context).colorScheme.onSurfaceVariant.withAlpha(60),
+                    enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(5.r),
+                        borderSide: BorderSide(color: Colors.transparent)),  //未激活状态
+                    focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(5.r),
+                        borderSide: BorderSide(color: Colors.transparent)),
+                      )
+                  ),
+                );
+            }
           ),
-          GestureDetector(   /// 定位到评论按钮
-            onTap: (){
-              scrollToCommentSection();
-            },
-            child: Container(
-              margin: EdgeInsets.only(left: 6.sp,top: 1.sp),
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surface,
+          Spacer(),
+          Column(          /// 收藏按钮正文
+            children: [
+              GestureDetector(
+                onTap: () => showToast("save"),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.surface,
+                  ),
+                  width: 30.sp,
+                  height: 25.sp,
+                  margin: EdgeInsets.only(top: 5.sp),
+                  child: Icon(Icons.bookmark,
+                    size: 28.sp,
+                    color: Theme.of(context).colorScheme.onSurfaceVariant.withAlpha(80),),
+                ),
               ),
-              width: 30.sp,
-              height: 50.sp,
-              child: Icon(Icons.messenger_outline_rounded,
-                size: 24.sp,
-                color: Theme.of(context).colorScheme.primary.withAlpha(80),),
-            ),
+              Text("5", style: TextStyle(fontSize: 8.sp,fontWeight: FontWeight.w500 ,color: Theme.of(context).colorScheme.onSurfaceVariant,)),
+            ],
+          ),
+          Column(    /// 定位到评论按钮
+            children: [
+              GestureDetector(
+                onTap: (){
+                  scrollToCommentSection();
+                },
+                child: Container(
+                  margin: EdgeInsets.only(left: 6.sp,top: 8.sp,right: 6.sp),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.surface,
+                  ),
+                  width: 30.sp,
+                  height: 22.sp,
+                  child: Icon(Icons.messenger_rounded,
+                    size: 24.sp,
+                    color: Theme.of(context).colorScheme.onSurfaceVariant.withAlpha(80),),
+                ),
+              ),
+              Text("${commentList.length}",
+                  style: TextStyle(fontSize: 8.sp, fontWeight: FontWeight.w500,color: Theme.of(context).colorScheme.onSurfaceVariant)),
+            ],
           ),
         ]
       )
