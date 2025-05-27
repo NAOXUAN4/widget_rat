@@ -10,7 +10,7 @@ import 'package:widget_rat/pages/PostDetailPage/viewmodel.dart';
 import 'package:widget_rat/utils/global.dart';
 
 import '../../common/style/theme.dart';
-import '../../widgets/avatar_Container/avator_Container.dart';
+import '../../widgets/avatar_Container/avatar_Container.dart';
 import '../../widgets/capsuleTags/capsule_tags.dart';
 
 class PostDetailPage extends StatefulWidget {
@@ -230,9 +230,9 @@ class _PostDetailPageState extends State<PostDetailPage> {
       child: Row(
         children: [
           Container(
-            child: AvatorContainer(
+            child: AvatarContainer(
               size: 16.sp,
-              avatorUrl: "https://${Global.ossAvatarUrl}${author}/test_upload.png",
+              avatarImg: NetworkImage("https://${Global.ossAvatarUrl}${author}/test_upload.png"),
             ),
           ),
           Container(
@@ -330,9 +330,9 @@ class _PostDetailPageState extends State<PostDetailPage> {
                         decoration: BoxDecoration(
                           // color: Colors.red,
                         ),
-                        child: AvatorContainer(
+                        child: AvatarContainer(
                           size: 16.sp,
-                          avatorUrl: "https://${Global.ossAvatarUrl}${commentitem.author}/test_upload.png",
+                          avatarImg: NetworkImage("https://${Global.ossAvatarUrl}${commentitem.author}/test_upload.png"),
                         ),
                       ),
                       Column(

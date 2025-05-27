@@ -20,12 +20,17 @@ void main() async{
     systemNavigationBarColor: Colors.transparent,
     statusBarIconBrightness: Brightness.dark,
   ));
-  DioInstance.instance().initDio(baseUrl: Constants.baseUrl);
-  final ossResult = await Api.instance.ossBaseUrl();
-  if (ossResult is OssBaseUrlData) {
-    Global.ossUrl = ossResult.ossBaseUrl;
-    Global.ossAvatarUrl = ossResult.ossAvatarUrl;
+  try  {
+    DioInstance.instance().initDio(baseUrl: Constants.baseUrl);
+    final ossResult = await Api.instance.ossBaseUrl();
+    if (ossResult is OssBaseUrlData) {
+      Global.ossUrl = ossResult.ossBaseUrl;
+      Global.ossAvatarUrl = ossResult.ossAvatarUrl;
+    }
+  } catch (e) {
+    print(e);
   }
+
 
   runApp(ProviderScope(child: const MyApp()));     // ProviderScope 包裹
 }

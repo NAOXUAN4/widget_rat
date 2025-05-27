@@ -2,16 +2,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class AvatorContainer extends StatelessWidget {
+class AvatarContainer extends StatelessWidget {
 
-  final String avatorUrl;
+  // final String avatarUrl;
+
+  final ImageProvider<Object> avatarImg;
 
   final double size;
 
-  const AvatorContainer({
+  const AvatarContainer({
     Key? key,
+    required this.avatarImg,
     required this.size,
-    required this.avatorUrl,
+    // required this.avatarUrl,
   }) : super(key: key);
 
   Widget build(BuildContext context) {
@@ -29,7 +32,7 @@ class AvatorContainer extends StatelessWidget {
       child: CircleAvatar(
         radius: size,
         backgroundColor: Theme.of(context).colorScheme.surface,
-        foregroundImage: NetworkImage(avatorUrl),
+        foregroundImage: avatarImg,
       ),   //  用户头像图片
     );
   }

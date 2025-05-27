@@ -47,8 +47,8 @@ class _GenNavState extends State<GenNav> {
       HomePage(),
       CommunityPage(),
       SectionsPage(),
-      // MyPage(),
-      TestPage(),
+      MyPage(),
+      // TestPage(),
     ];
 
   }

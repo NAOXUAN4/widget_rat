@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppTheme {
   //===================== Dark Mode Colors =====================
@@ -64,6 +65,8 @@ class AppTheme {
   //===================== 直接可用的颜色（按需调用） =====================
   static const Color neonEffect = _darkSecondary; // 荧光绿特效（如按钮光效）
   static const Color codeHighlight = Color(0xFF00FF00); // 代码高亮绿
+
+  static  BorderRadius defaultBorderRadius = BorderRadius.circular(5.sp);
 }
 
 /// 标签颜色枚举
