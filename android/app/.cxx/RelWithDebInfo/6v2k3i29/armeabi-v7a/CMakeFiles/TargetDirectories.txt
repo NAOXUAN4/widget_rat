@@ -1,2 +1,0 @@
-E:/proJectLibrary/widget_rat/android/app/.cxx/RelWithDebInfo/6v2k3i29/armeabi-v7a/CMakeFiles/edit_cache.dir
-E:/proJectLibrary/widget_rat/android/app/.cxx/RelWithDebInfo/6v2k3i29/armeabi-v7a/CMakeFiles/rebuild_cache.dir
