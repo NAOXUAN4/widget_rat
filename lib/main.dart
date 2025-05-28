@@ -6,8 +6,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:widget_rat/router/routes.dart';
 import 'package:widget_rat/common/style/theme.dart';
+import 'package:widget_rat/themeviewmodel.dart';
 import 'package:widget_rat/utils/constants.dart';
 import 'package:widget_rat/utils/global.dart';
+import 'package:widget_rat/utils/logger.dart';
 
 import 'api/api.dart';
 import 'api/dataClass/Oss_BaseUrl_data.dart';
@@ -35,22 +37,15 @@ void main() async{
   runApp(ProviderScope(child: const MyApp()));     // ProviderScope 包裹
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,  WidgetRef ref ) {
+    final ThemeModeState = ref.watch(themeModeNotifierProvider);
+    // Global.init().then((value) {
+    //   print("初始化完成");
+    // });
     return OKToast(
       child: ScreenUtilInit(
         builder: (context, child) {
@@ -59,7 +54,7 @@ class _MyAppState extends State<MyApp> {
             routerConfig: approutes,
             theme: AppTheme.lightTheme,
             darkTheme: AppTheme.darkTheme,
-            themeMode: ThemeMode.light,
+            themeMode: ThemeModeState.isNight ? ThemeMode.dark : ThemeMode.light,
           );
         },
       ),
