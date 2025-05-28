@@ -136,7 +136,7 @@ class Api {
   }
 
   /// GET "api/users/me/"  获取用户基本信息
-  Future<dynamic>me()async{  //登录
+  Future<dynamic>me()async{
     Response response = await DioInstance.instance().get(
         path: "api/users/me/");
     // logger.d("${response.data}");

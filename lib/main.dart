@@ -4,9 +4,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:oktoast/oktoast.dart';
+import 'package:widget_rat/init.dart';
 import 'package:widget_rat/router/routes.dart';
 import 'package:widget_rat/common/style/theme.dart';
-import 'package:widget_rat/themeviewmodel.dart';
+import 'package:widget_rat/providers/themeviewmodel.dart';
 import 'package:widget_rat/utils/constants.dart';
 import 'package:widget_rat/utils/global.dart';
 import 'package:widget_rat/utils/logger.dart';
@@ -22,20 +23,11 @@ void main() async{
     systemNavigationBarColor: Colors.transparent,
     statusBarIconBrightness: Brightness.dark,
   ));
-  try  {
-    DioInstance.instance().initDio(baseUrl: Constants.baseUrl);
-    final ossResult = await Api.instance.ossBaseUrl();
-    if (ossResult is OssBaseUrlData) {
-      Global.ossUrl = ossResult.ossBaseUrl;
-      Global.ossAvatarUrl = ossResult.ossAvatarUrl;
-    }
-  } catch (e) {
-    print(e);
-  }
 
-
+  await initializeApp();
   runApp(ProviderScope(child: const MyApp()));     // ProviderScope 包裹
 }
+
 
 class MyApp extends ConsumerWidget {
   const MyApp({super.key});
@@ -43,9 +35,6 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context,  WidgetRef ref ) {
     final ThemeModeState = ref.watch(themeModeNotifierProvider);
-    // Global.init().then((value) {
-    //   print("初始化完成");
-    // });
     return OKToast(
       child: ScreenUtilInit(
         builder: (context, child) {

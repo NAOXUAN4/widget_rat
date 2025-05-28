@@ -10,6 +10,7 @@ import 'package:widget_rat/widgets/capsuleTags/capsule_tags.dart';
 
 import '../../common/style/theme.dart';
 import '../../router/routes.dart';
+import '../../utils/global.dart';
 
 class CommunityPage extends StatefulWidget {
   @override
@@ -169,6 +170,7 @@ class _CommunityPageState extends State<CommunityPage> {
             createdAt: comListState.postsList[index].createdAt ?? "Null",
             postType: comListState.postsList[index].postType ?? "Null",
             avatorUrl: comListState.postsList[index].authorAvatarUrl ?? "NULL",
+            author: comListState.postsList[index].author  ?? 1,    /// 作者id
           ),
           // _ListItemContent(),
         ]
@@ -180,9 +182,11 @@ class _CommunityPageState extends State<CommunityPage> {
                           required String title,        /// 标题
                           required String createdAt,   /// 创建时间
                           required String postType,     /// 分类
-                          required String avatorUrl         /// 头像
+                          required String avatorUrl,         /// 头像
+                          required num author,
   }){
     return Container(
+      key: Key("_ListItemTitle${postid}"),
       height: 80.sp,
       width:  double.infinity,
       margin: EdgeInsets.symmetric(vertical: 1.sp),
@@ -206,7 +210,7 @@ class _CommunityPageState extends State<CommunityPage> {
             child: CircleAvatar(
               radius: 30.sp,
               backgroundColor: Theme.of(context).colorScheme.surface,
-              foregroundImage: NetworkImage(avatorUrl),
+              foregroundImage: NetworkImage("https://${Global.ossAvatarUrl}${author}/test_upload.png"),
             ),   //  用户头像图片
           ),   // 头像
           GestureDetector(

@@ -7,7 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:widget_rat/common/style/theme.dart';
 import 'package:widget_rat/pages/myPage/viewmodel.dart';
 
-import '../../themeviewmodel.dart';
+import '../../providers/themeviewmodel.dart';
 import '../../widgets/avatar_Container/avatar_Container.dart';
 
 class MyPage extends ConsumerWidget {
@@ -19,6 +19,7 @@ class MyPage extends ConsumerWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
+        toolbarHeight: 30.sp,
         backgroundColor: Theme.of(context).colorScheme.background,
         actions: [
           IconButton(
@@ -33,7 +34,12 @@ class MyPage extends ConsumerWidget {
         child: Container(
           child: Column(            /// 头像卡片 + profile内容
             children: [
-              _avatarCard(context, ref, state.avatarUrl),
+              _avatarCard(context, ref,
+                  state.avatarUrl,
+                  state.username,
+                  state.authorid,
+                  state.userBio
+              ),
               _likedCard(context, ref),
               _settingsCard(context, ref),
             ],
@@ -44,7 +50,12 @@ class MyPage extends ConsumerWidget {
   }
 
 
-  Widget _avatarCard(BuildContext context, WidgetRef ref, String avatarUrl){
+  Widget _avatarCard(BuildContext context, WidgetRef ref,
+      String avatarUrl,
+      String username,
+      num authorid,
+      String userBio
+      ){
     return Container(
       margin: EdgeInsets.only(top: 15.sp,right: 10.sp,left: 10.sp),
       height: 200.sp,
@@ -70,7 +81,7 @@ class MyPage extends ConsumerWidget {
                       ),
                       child: AvatarContainer(
                         size: 40.sp,
-                        avatarImg: FileImage(File(avatarUrl)),
+                        avatarImg: NetworkImage(avatarUrl),
                       ),
                     ),
                     Container(   ///姓名 + 其他信息
@@ -81,7 +92,7 @@ class MyPage extends ConsumerWidget {
                         children: [
                           Container(
                             margin: EdgeInsets.only(top: 10.sp),
-                            child: Text("name",
+                            child: Text("${username}",
                               style: TextStyle(
                                   fontSize: 20.sp,
                                   fontWeight: FontWeight.bold,
@@ -91,7 +102,7 @@ class MyPage extends ConsumerWidget {
                           ),
                           Container(
                             margin: EdgeInsets.only(top: 10.sp),
-                            child: Text("Bio",
+                            child: Text("${userBio}",
                               style:TextStyle(
                                 fontSize: 15.sp,
                                 color: Theme.of(context).colorScheme.onSurfaceVariant,
@@ -112,6 +123,12 @@ class MyPage extends ConsumerWidget {
   }
 
   Widget _likedCard(BuildContext context, WidgetRef ref){
+    final List<List> _likedItemKV = [
+      [Icons.my_library_add_outlined, "Posts"],
+      [Icons.bookmark_border_outlined, "Mark"],
+      [Icons.star_border_rounded, "Subscribe"],
+      [Icons.history, "History"],
+    ];
     return Container(
       margin: EdgeInsets.only(top: 10.sp,right: 10.sp,left: 10.sp),
       height: 60.sp,
@@ -120,8 +137,46 @@ class MyPage extends ConsumerWidget {
         borderRadius: AppTheme.defaultBorderRadius,
         color: Theme.of(context).colorScheme.surface,
       ),
-      child: Text("Likes")
-      );
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children:[
+          _buildLikedItem(context,ref, _likedItemKV[0]),
+          _buildLikedItem(context,ref, _likedItemKV[1]),
+          _buildLikedItem(context,ref, _likedItemKV[2]),
+          _buildLikedItem(context,ref, _likedItemKV[3]),
+        ]
+      )
+    );
+  }
+
+  Widget _buildLikedItem(BuildContext context, WidgetRef ref, List KV){
+    return Container(
+      margin: EdgeInsets.only(right: 10.sp,left: 10.sp),
+      height: 60.sp,
+      width: 60.sp,
+      decoration: BoxDecoration(
+        borderRadius: AppTheme.defaultBorderRadius,
+        // color: Colors.red,
+      ),
+      child: Column(
+        children: [
+          Container(
+            margin: EdgeInsets.only(top: 12.sp),
+            child: Icon(
+              KV[0],
+              color: Theme.of(context).colorScheme.secondary,
+            )
+          ),
+          Container(
+            margin: EdgeInsets.only(top: 3.sp),
+            child: Text("${KV[1]}",style :TextStyle(
+              fontSize: 10.sp,
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ))
+          )
+        ]
+      )
+    );
   }
 
 
@@ -147,8 +202,8 @@ class MyPage extends ConsumerWidget {
 
   Widget _profileListItem(BuildContext context, WidgetRef ref,  int index){
     final List<List> iconTextKV = [
-      [Icons.link, "Links"],
-      [Icons.calendar_month, "Calendar"],
+      [Icons.manage_accounts_outlined, "Manage"],
+      [Icons.info_outline, "About"],
       [Icons.settings_sharp, "Settings"],
     ];
     return Container(
@@ -168,8 +223,9 @@ class MyPage extends ConsumerWidget {
         margin: EdgeInsets.only(left: 5.sp),
         child: Row(
           children: [
+            SizedBox(width: 10.sp,),
             Icon(iconTextKV[index][0],size: 20.sp,color: Theme.of(context).colorScheme.primary,),
-            SizedBox(width: 5.sp,),
+            SizedBox(width: 6.sp,),
             Text("${iconTextKV[index][1]}",style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant,fontSize: 12.sp,),),
             Spacer(),
             Icon(Icons.arrow_forward_ios_outlined,size: 15.sp,color: Theme.of(context).colorScheme.onSurfaceVariant,),

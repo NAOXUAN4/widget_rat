@@ -12,7 +12,7 @@ class CounterStateNotifier extends StateNotifier<int> {
   void decrement() => state--;
   // TODO: 错误返回
   Future LoginTest() async{
-    var response = await Api.instance.login("dazhu", "nao2004");
+    var response = await Api.instance.login("Nanyian", "nao2004");
   }
   Future meTest() async{
     var response = await Api.instance.me();
