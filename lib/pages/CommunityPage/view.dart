@@ -100,7 +100,7 @@ class _CommunityPageState extends State<CommunityPage> {
                                 children: [
                                   Spacer(),
                                   Container(               /// 换一批按钮
-                                    margin: EdgeInsets.only(left : 10.sp,right: 10.sp),
+                                    margin: EdgeInsets.only(left : 15.sp,right: 0.sp, bottom: 2.sp),
                                     height: 28.sp,
                                     width: 70.sp,
                                     decoration: BoxDecoration(

@@ -58,7 +58,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
            ],
           ),
           bottomSheet: Container(         /// 底部 工具栏  ==> 选择分区 + 添加图片
-            height: 45.sp,
+            height: 50.sp,
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.surface
             ),
@@ -74,9 +74,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
                   ),
                   child: TextButton(
                       onPressed: () => showSelectPostTypeBottomSheet(context, ref),
-                      child: Wrap(
-                        alignment: WrapAlignment.center,
-                        crossAxisAlignment: WrapCrossAlignment.center,
+                      child: Row(
                         children: [
                           Icon(Icons.add,color: Theme.of(context).colorScheme.onSurfaceVariant,),
                           Text("添加分区",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 11.sp,color: Theme.of(context).colorScheme.onSurfaceVariant),)

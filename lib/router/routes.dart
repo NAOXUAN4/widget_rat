@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:widget_rat/nav/nav.dart';
 
 import '../pages/CreatePostPage/view.dart';
+import '../pages/EditMePage/view.dart';
 import '../pages/PostDetailPage/view.dart';
 import '../pages/SearchPage/view.dart';
 import '../pages/HomePage/view.dart';
@@ -50,6 +51,13 @@ final GoRouter approutes = GoRouter(
           path: '/my',
           name: RouteNames.myPage,
           builder: (context, state) => MyPage(),
+          routes: [
+            GoRoute(
+              path: '/editme',
+              name: RouteNames.EditMePage,
+              builder: (context, state) => EditMePage(),
+            ),
+          ],
         ),
         GoRoute(
           path: '/search',
@@ -75,5 +83,6 @@ class RouteNames {
   static const String searchPage = "/search";
   static const String sectionsPage = "/sections";
   static const String myPage = "/my";
+  static const String EditMePage = "/my/editme";
   static const String testPage = "/test";
 }

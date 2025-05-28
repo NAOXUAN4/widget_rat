@@ -4,10 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:widget_rat/common/style/theme.dart';
 import 'package:widget_rat/pages/myPage/viewmodel.dart';
 
 import '../../providers/themeviewmodel.dart';
+import '../../router/routes.dart';
 import '../../widgets/avatar_Container/avatar_Container.dart';
 
 class MyPage extends ConsumerWidget {
@@ -202,37 +204,42 @@ class MyPage extends ConsumerWidget {
 
   Widget _profileListItem(BuildContext context, WidgetRef ref,  int index){
     final List<List> iconTextKV = [
-      [Icons.manage_accounts_outlined, "Manage"],
-      [Icons.info_outline, "About"],
-      [Icons.settings_sharp, "Settings"],
+      [Icons.manage_accounts_outlined, "Manage", RouteNames.EditMePage],
+      [Icons.info_outline, "About", "/my/about"],
+      [Icons.settings_sharp, "Settings", "/my/settings"],
     ];
-    return Container(
-      margin: EdgeInsets.only(top: 10.sp,right: 0.sp,left: 0.sp),
-      height: 40.sp,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: AppTheme.defaultBorderRadius,
-        // color: Colors.blue,
-      ),
+    return GestureDetector(
+      onTap: () {
+        context.goNamed(iconTextKV[index][2]);    /// jump to page /my/...
+      },
       child: Container(
-        alignment: Alignment.centerLeft,
+        margin: EdgeInsets.only(top: 10.sp,right: 0.sp,left: 0.sp),
+        height: 40.sp,
+        width: double.infinity,
         decoration: BoxDecoration(
           borderRadius: AppTheme.defaultBorderRadius,
-          // color: Colors.lightGreen,
+          // color: Colors.blue,
         ),
-        margin: EdgeInsets.only(left: 5.sp),
-        child: Row(
-          children: [
-            SizedBox(width: 10.sp,),
-            Icon(iconTextKV[index][0],size: 20.sp,color: Theme.of(context).colorScheme.primary,),
-            SizedBox(width: 6.sp,),
-            Text("${iconTextKV[index][1]}",style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant,fontSize: 12.sp,),),
-            Spacer(),
-            Icon(Icons.arrow_forward_ios_outlined,size: 15.sp,color: Theme.of(context).colorScheme.onSurfaceVariant,),
-            SizedBox(width: 5.sp,),
-          ],
-        ),
-      )
+        child: Container(
+          alignment: Alignment.centerLeft,
+          decoration: BoxDecoration(
+            borderRadius: AppTheme.defaultBorderRadius,
+            // color: Colors.lightGreen,
+          ),
+          margin: EdgeInsets.only(left: 5.sp),
+          child: Row(
+            children: [
+              SizedBox(width: 10.sp,),
+              Icon(iconTextKV[index][0],size: 20.sp,color: Theme.of(context).colorScheme.primary,),
+              SizedBox(width: 6.sp,),
+              Text("${iconTextKV[index][1]}",style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant,fontSize: 12.sp,),),
+              Spacer(),
+              Icon(Icons.arrow_forward_ios_outlined,size: 15.sp,color: Theme.of(context).colorScheme.onSurfaceVariant,),
+              SizedBox(width: 5.sp,),
+            ],
+          ),
+        )
+      ),
     );
   }
 
