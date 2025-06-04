@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:widget_rat/api/dataClass/Oss_BaseUrl_data.dart';
 
 import 'package:widget_rat/api/dataClass/Posts_List_data.dart';
+import 'package:widget_rat/api/dataClass/Update_Me_data.dart';
 import 'package:widget_rat/api/dataClass/UsersMe_Res_data.dart';
 import '../http/dio_instance.dart';
 
@@ -148,6 +149,25 @@ class Api {
       return false;
     }//拦截器会返回true或false
   }
+
+
+  /// PUT "api/users/me/update/" 修改用户信息
+  Future<dynamic> updateMe(Map<String, dynamic> updateData)async{
+    Response response = await DioInstance.instance().put(
+        path: "api/users/me/update/",
+        data: updateData,
+    );
+    try {
+      response.data["errorCode"] == 0;
+      return UpdateMeData.fromJson(response.data);
+    }catch(e){
+      return false;
+    }
+
+  }
+
+
+
 
   /// GET "/api/oss/baseUrl/" 获取OSS储存Url
   Future<dynamic>ossBaseUrl()async{  //登录

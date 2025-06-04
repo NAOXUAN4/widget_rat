@@ -6,6 +6,9 @@ class Global {
   static String? userName;
   static String? userBio;
 
+
+  static String? userAvatarPath = "https://${Global.ossAvatarUrl}${Global.userId}/test_upload.png";
+
   static bool isLogin = false;
 
 

@@ -10,12 +10,16 @@ import 'package:widget_rat/pages/myPage/viewmodel.dart';
 
 import '../../providers/themeviewmodel.dart';
 import '../../router/routes.dart';
+import '../../utils/logger.dart';
 import '../../widgets/avatar_Container/avatar_Container.dart';
 
 class MyPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // final GoRouter _router = GoRouter.of(context);
+    // logger.d('Edit Node 当前路由名称: ${_router.routeInformationProvider.value.uri}');
+
     final state = ref.watch(mypageNotifierProvider);
     final themeModeState = ref.watch(themeModeNotifierProvider);  /// 日夜切换
     return Scaffold(
