@@ -42,8 +42,7 @@ class _GenNavState extends State<GenNav> {
 
   List<Widget> _buildScreens() {  // 返回页面列表
     return [
-      // TestPage(),
-      HomePage1(),
+      TestPage(),
       // PostDetailPage(postId : "1"),
       HomePage(),
       CommunityPage(),

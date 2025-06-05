@@ -46,6 +46,12 @@ class CounterStateNotifier extends StateNotifier<int> {
     PostDetailData postsDetailData = response;
     logger.d(postsDetailData);
   }
+
+  Future getOssTmpAccess()async {
+    var response = await Api.instance.ossTmpAccess();
+    logger.d("${response}");
+  }
+
 }
 
 final counterNotifierProvider = StateNotifierProvider<CounterStateNotifier, int>(

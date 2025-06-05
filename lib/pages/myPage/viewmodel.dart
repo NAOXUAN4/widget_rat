@@ -19,9 +19,7 @@ class MyPageState {
   final String editEmail;
   final String editGithubUrl;
   final String editBio;
-
-
-
+  
   MyPageState({
     this.isLoading = false,
     this.avatarUrl = "",

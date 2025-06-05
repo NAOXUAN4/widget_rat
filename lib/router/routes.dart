@@ -67,7 +67,7 @@ final GoRouter approutes = GoRouter(
         GoRoute(
           path: '/test',
           name: RouteNames.testPage,
-          builder: (context, state) => HomePage1()
+          builder: (context, state) => TestPage(),
         ),
       ],
     ),

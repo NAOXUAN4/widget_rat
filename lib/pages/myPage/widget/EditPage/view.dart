@@ -94,8 +94,8 @@ class _EditMePage extends State<EditMePage>{
                   TextFormField(
                     controller:  _editEmailController,
                     validator: (value) {
-                      if (!isValidEmail(value) && (value!.isEmpty)) {
-                        return '邮箱格式不正确';
+                      if (!isValidEmail(value)) {
+                        return 'Format is not Valid';
                       }
                       return null;
                     },
