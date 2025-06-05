@@ -29,7 +29,6 @@ class AuthInfo {
       isLoading: isLoading ?? this.isLoading,
     );
   }
-
 }
 
 

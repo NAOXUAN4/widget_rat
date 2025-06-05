@@ -12,6 +12,7 @@ import 'package:widget_rat/utils/global.dart';
 import '../../common/style/theme.dart';
 import '../../widgets/avatar_Container/avatar_Container.dart';
 import '../../widgets/capsuleTags/capsule_tags.dart';
+import 'model.dart';
 
 class PostDetailPage extends StatefulWidget {
   final String postId;

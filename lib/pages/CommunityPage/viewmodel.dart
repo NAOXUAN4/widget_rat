@@ -3,13 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:widget_rat/api/dataClass/Posts_List_data.dart';
 import '../../api/api.dart';
 import '../../utils/logger.dart';
-
-class ComListState {
-  final List<PostsListDataItem> postsList;
-  final bool isLoading;
-
-  ComListState({required this.postsList, this.isLoading = false});
-}
+import 'model.dart';
 
 
 class ComListStateNotifier extends StateNotifier<ComListState> {

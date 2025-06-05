@@ -11,6 +11,7 @@ import 'package:widget_rat/widgets/capsuleTags/capsule_tags.dart';
 import '../../common/style/theme.dart';
 import '../../router/routes.dart';
 import '../../utils/global.dart';
+import 'model.dart';
 
 class CommunityPage extends StatefulWidget {
   @override

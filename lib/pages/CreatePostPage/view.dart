@@ -11,6 +11,7 @@ import 'package:widget_rat/pages/CreatePostPage/viewmodel.dart';
 import '../../common/style/theme.dart';
 import '../../widgets/capsuleTags/capsule_tags.dart';
 import '../../widgets/markdown_editor/widgets/markdown_auto_preview.dart';
+import 'model.dart';
 
 
 class CreatePostPage extends StatefulWidget  {
