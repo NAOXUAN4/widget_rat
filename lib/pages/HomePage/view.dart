@@ -1,15 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:widget_rat/pages/HomePage/viewmodel.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends ConsumerStatefulWidget {
   @override
-  State<StatefulWidget> createState() {
+  ConsumerState<HomePage> createState() {
     // TODO: implement createState
     return _HomePageState();
   }
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends ConsumerState<HomePage> {
 
   @override
   void initState() {
@@ -18,10 +20,9 @@ class _HomePageState extends State<HomePage> {
 
   }
 
-
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    final state = ref.watch(homePageNotifierProvider);
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(

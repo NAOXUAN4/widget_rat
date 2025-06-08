@@ -109,7 +109,7 @@ class Api {
   /// POST "api/users/register/" 注册，返回JWT令牌, 用户基本信息
   Future<dynamic>register(String? username,String? password,String? repassword)async{
     Response response = await DioInstance.instance().post(   //发送Post传参请求
-        path: "api/users/register",
+        path: "api/users/register/",
         data: {"username":username,"password":password});
     // logger.d("${response.data}");
     try{ //若报错肯定进入过拦截器的错误处理
