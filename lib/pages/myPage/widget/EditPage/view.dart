@@ -12,6 +12,7 @@ import '../../../../widgets/avatar_Container/avatar_Container.dart';
 class EditMePage extends StatefulWidget {
   const EditMePage({Key? key}) : super(key: key);
 
+
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -20,15 +21,23 @@ class EditMePage extends StatefulWidget {
 }
 
 class _EditMePage extends State<EditMePage>{
+
+  late final TextEditingController _editEmailController = TextEditingController();
+  late final TextEditingController _editBioController = TextEditingController();
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _editEmailController.dispose();
+    _editBioController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     // final _router = GoRouter.of(context);
     // logger.d('当前路由名称: ${_router.routeInformationProvider.value.uri}');
     final _formKey = GlobalKey<FormState>();
-
-    late final TextEditingController _editEmailController = TextEditingController();
-    late final TextEditingController _editBioController = TextEditingController();
-
 
     // final state = ref.watch(mypageNotifierProvider);   /// 共用的mypage数据
     return Consumer(
