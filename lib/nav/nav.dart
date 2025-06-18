@@ -57,7 +57,7 @@ class _GenNavState extends State<GenNav> {
     return [
       PersistentBottomNavBarItem(
         icon: Icon(Icons.exit_to_app_sharp),
-        title: ("Test"),
+        // title: ("Test"),
         activeColorPrimary: Theme.of(context).colorScheme.secondary,
         activeColorSecondary: Theme.of(context).colorScheme.secondary,
         inactiveColorPrimary: Theme.of(context).colorScheme.primary,
@@ -65,28 +65,28 @@ class _GenNavState extends State<GenNav> {
 
       PersistentBottomNavBarItem(
         icon: Icon(Icons.home),
-        title: ("Home"),
+        // title: ("Home"),
         activeColorPrimary: Theme.of(context).colorScheme.secondary,
         activeColorSecondary: Theme.of(context).colorScheme.secondary,
         inactiveColorPrimary: Theme.of(context).colorScheme.primary,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.forum),
-        title: ("Community"),
+        // title: ("Community"),
         activeColorPrimary: Theme.of(context).colorScheme.secondary,
         activeColorSecondary: Theme.of(context).colorScheme.secondary,
         inactiveColorPrimary: Theme.of(context).colorScheme.primary,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.grid_view_rounded),
-        title: ("Sections"),
+        // title: ("Sections"),
         activeColorPrimary: Theme.of(context).colorScheme.secondary,
         activeColorSecondary: Theme.of(context).colorScheme.secondary,
         inactiveColorPrimary: Theme.of(context).colorScheme.primary,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.account_box),
-        title: ("My"),
+        // title: ("My"),
         activeColorPrimary: Theme.of(context).colorScheme.secondary,
         activeColorSecondary: Theme.of(context).colorScheme.secondary,
         inactiveColorPrimary: Theme.of(context).colorScheme.primary,
