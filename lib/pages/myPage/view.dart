@@ -76,7 +76,7 @@ class MyPage extends ConsumerWidget {
               margin: EdgeInsets.only(top: 20.sp),
               child: GestureDetector(
                 onTap: (){
-                  ref.read(mypageNotifierProvider.notifier).pickAvatarFromGallery();
+                  // ref.read(mypageNotifierProvider.notifier).pickAvatarFromGallery();
                 },
                 child: Column(
                   children: [

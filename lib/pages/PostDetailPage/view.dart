@@ -233,7 +233,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
           Container(
             child: AvatarContainer(
               size: 16.sp,
-              avatarImg: NetworkImage(Global.userAvatarPath!),
+              avatarImg: NetworkImage("https://${Global.ossAvatarUrl}${author}/avatar.png"),
             ),
           ),
           Container(
@@ -333,7 +333,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
                         ),
                         child: AvatarContainer(
                           size: 16.sp,
-                          avatarImg: NetworkImage("https://${Global.ossAvatarUrl}${commentitem.author}/test_upload.png"),
+                          avatarImg: NetworkImage("https://${Global.ossAvatarUrl}${commentitem.author}/avatar.png"),
                         ),
                       ),
                       Column(

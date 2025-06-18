@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:widget_rat/api/dataClass/Post_Detail_data.dart';
 import 'package:widget_rat/api/dataClass/Posts_List_data.dart';
@@ -47,8 +49,9 @@ class CounterStateNotifier extends StateNotifier<int> {
     logger.d(postsDetailData);
   }
 
-  Future getOssTmpAccess()async {
-    var response = await Api.instance.ossTmpAccess();
+  Future uploadAvatarTest()async {
+    final File avatarFile = File("/data/user/0/com.example.widget_rat_app/cache/aa608388-0388-43c5-9885-7b8121e7a8f7/IMG_20250527_080740.jpg");
+    var response = await Api.instance.upLoadAvatar(avatarFile);
     logger.d("${response}");
   }
 

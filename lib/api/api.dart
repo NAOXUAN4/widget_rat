@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:widget_rat/api/dataClass/Oss_BaseUrl_data.dart';
 import 'package:widget_rat/api/dataClass/Oss_TmpAccess_data.dart';
+import 'package:widget_rat/api/dataClass/Oss_Upload_Avatar.dart';
 
 import 'package:widget_rat/api/dataClass/Posts_List_data.dart';
 import 'package:widget_rat/api/dataClass/Update_Me_data.dart';
@@ -182,18 +183,26 @@ class Api {
     }//拦截器会返回true或false
   }
 
-  /// GET /api/oss/token/
-  Future<dynamic>ossTmpAccess() async{
-    Response response = await DioInstance.instance().get(
-        path: "/api/oss/token/",
-    );
-    try{
-      response.statusCode == 200;
-      return OssTmpAccessData.fromJson(response.data);
-    }catch(e){
-      return false;
-    }
+  ///POST "/api/oss/upload-avatar/"  上传头像
+  Future<dynamic>upLoadAvatar(File avatarFile)async{
 
+    final formData = FormData.fromMap({
+      'avatar': await MultipartFile.fromFile(avatarFile.path, filename: 'avatar.png'),
+    });
+
+    Response response = await DioInstance.instance().post(
+        path: "api/oss/upload-avatar/",
+        data: formData
+
+    );
+    // logger.d("${response.data}");
+    try{ //若报错肯定进入过拦截器的错误处理
+      response.statusCode == 200;
+      return OssUploadAvatar.fromJson(response.data);
+    }
+    catch(e){
+      return false;
+    }//拦截器会返回true或false
   }
 
 

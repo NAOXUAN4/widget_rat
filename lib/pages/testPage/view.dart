@@ -68,9 +68,9 @@ class TestPage extends StatelessWidget{
                 ),
                 ElevatedButton(
                     onPressed: (){
-                      ref.read(counterNotifierProvider.notifier).getOssTmpAccess();
+                      ref.read(counterNotifierProvider.notifier).uploadAvatarTest();
                     },
-                    child: Text("getOssTmpAccess")
+                    child: Text("uploadAvatarTest")
                 )
               ],
             ),

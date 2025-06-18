@@ -6,6 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:widget_rat/pages/myPage/viewmodel.dart';
 
+import '../../../../utils/global.dart';
+import '../../../../utils/logger.dart';
 import '../../../../widgets/avatar_Container/avatar_Container.dart';
 
 
@@ -147,7 +149,12 @@ class _EditMePage extends State<EditMePage>{
                     child: ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState?.validate() ?? false) { /// Form 包裹正确性检测
-                          ref.read(mypageNotifierProvider.notifier).updateMe();
+                          ref.read(mypageNotifierProvider.notifier).updateMe().then((value){
+                            ref.read(mypageNotifierProvider.notifier).refreshGlobalInfo().then((value){
+                              logger.d(Global.userBio);
+                              context.pop();
+                            });
+                          });
                         }
                       },
                       style: ElevatedButton.styleFrom(
