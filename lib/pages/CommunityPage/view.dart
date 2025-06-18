@@ -211,7 +211,7 @@ class _CommunityPageState extends State<CommunityPage> {
             child: CircleAvatar(
               radius: 30.sp,
               backgroundColor: Theme.of(context).colorScheme.surface,
-              foregroundImage: NetworkImage("https://${Global.ossAvatarUrl}${author}/test_upload.png"),
+              foregroundImage: NetworkImage(Global.userAvatarPath ?? ""),
             ),   //  用户头像图片
           ),   // 头像
           GestureDetector(

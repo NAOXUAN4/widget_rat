@@ -154,7 +154,7 @@ class _EditMePage extends State<EditMePage>{
                         backgroundColor: Theme.of(context).colorScheme.primary,
                         padding: const EdgeInsets.symmetric(vertical: 16),
                       ),
-                      child: Icon(Icons.save,size: 20.sp,color: Theme.of(context).colorScheme.surface,),
+                      child: Icon(Icons.check,size: 20.sp,color: Theme.of(context).colorScheme.surface,),
                     ),
                   ),
                 ],

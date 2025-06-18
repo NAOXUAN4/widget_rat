@@ -21,11 +21,11 @@ bool isValidEmail(String? email) {
 
 class MyPageNotifier extends StateNotifier<MyPageState> {
   MyPageNotifier() : super(MyPageState(
-    avatarUrl: "https://${Global.ossAvatarUrl}${Global.userId}/test_upload.png",
+    avatarUrl: Global.userAvatarPath ?? "",
     username: Global.userName ?? "DefaultName",
     authorid: Global.userId ?? 0,
     userBio:  Global.userBio ?? "",
-    avatarTmp: "https://${Global.ossAvatarUrl}${Global.userId}/test_upload.png",
+    avatarTmp: Global.userAvatarPath ?? "",
   ));
 
   final ImagePicker picker = ImagePicker();
