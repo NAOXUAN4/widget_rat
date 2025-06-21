@@ -24,7 +24,7 @@ bool isValidEmail(String? email) {
 class MyPageNotifier extends StateNotifier<MyPageState> {
   MyPageNotifier() : super(MyPageState(
     avatarUrl: Global.userAvatarPath ?? "",
-    username: Global.userName ?? "DefaultName",
+    username: Global.userName ?? "Guest",
     authorid: Global.userId ?? 0,
     userBio:  Global.userBio ?? "",
     avatarTmp: Global.userAvatarPath ?? "",

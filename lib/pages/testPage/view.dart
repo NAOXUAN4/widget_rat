@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:widget_rat/pages/testPage/viewmodel.dart';
+import 'package:widget_rat/router/routes.dart';
 
 
 class TestPage extends StatelessWidget{
@@ -71,6 +73,10 @@ class TestPage extends StatelessWidget{
                       ref.read(counterNotifierProvider.notifier).uploadAvatarTest();
                     },
                     child: Text("uploadAvatarTest")
+                ),
+                ElevatedButton(
+                    onPressed: ()=>context.go(RouteNames.loginPage),
+                    child: Text("go2LoginPage")
                 )
               ],
             ),

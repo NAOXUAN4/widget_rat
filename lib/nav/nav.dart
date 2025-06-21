@@ -50,11 +50,11 @@ class _GenNavState extends State<GenNav> {
       MyPage(),
       // TestPage(),
     ];
-
   }
 
   List<PersistentBottomNavBarItem> _navBarsItems() {   // 返回底部导航栏列表
     return [
+      /// test
       PersistentBottomNavBarItem(
         icon: Icon(Icons.exit_to_app_sharp),
         // title: ("Test"),

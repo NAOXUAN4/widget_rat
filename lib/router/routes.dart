@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:widget_rat/nav/nav.dart';
+import 'package:widget_rat/pages/LoginRegisterPage/view.dart';
 
 import '../pages/CreatePostPage/view.dart';
 import '../pages/myPage/widget/EditPage/view.dart';
@@ -15,6 +16,7 @@ import '../pages/testPage/view.dart';
 final GoRouter approutes = GoRouter(
   routes: [     // 路由列表
     GoRoute(    //顶级路由
+      /// 导航
       path: '/',
       name: RouteNames.nav,
       builder: (context, state) => GenNav(),
@@ -52,7 +54,6 @@ final GoRouter approutes = GoRouter(
           path: '/my',
           name: RouteNames.myPage,
           builder: (context, state) => MyPage(),
-
         ),
         GoRoute(
           path: '/editme',
@@ -63,6 +64,12 @@ final GoRouter approutes = GoRouter(
           path: '/search',
           name: RouteNames.searchPage,
           builder: (context, state) => SearchPage(),
+        ),
+        GoRoute(
+          /// 登录页面
+          path: '/login',
+          name: RouteNames.loginPage,
+          builder: (context, state) => LoginPage(),
         ),
         GoRoute(
           path: '/test',
@@ -85,4 +92,5 @@ class RouteNames {
   static const String myPage = "/my";
   static const String EditMePage = "/editme";
   static const String testPage = "/test";
+  static const String loginPage = "/login";
 }
