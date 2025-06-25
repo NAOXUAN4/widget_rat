@@ -12,9 +12,10 @@ class LoginRegisterNotifier extends StateNotifier<LoginRegisterState>{
   );
 
   /// 输入框更新state
-  void updateContent(String input, bool isPWD){
-    isPWD ? state = state.CopyWith(inputPassword: input) :
-      state = state.CopyWith(inputAccount: input);
+  void updateContent(String input, int inputType){   /// 0: account 1: pwd 2.Repwd
+    inputType == 0 ? state = state.CopyWith(inputAccount: input)
+        : inputType == 1 ? state = state.CopyWith(inputPassword: input)
+          : state = state.CopyWith(inputRePassword: input);
   }
 
   ///登录
@@ -40,6 +41,33 @@ class LoginRegisterNotifier extends StateNotifier<LoginRegisterState>{
     return _isLoginSucc;
   }
 
+  ///注册
+  Future<dynamic> submitRegister()async{
+    bool _isRegisterSucc = false;
+    if (state.isLoading){logger.d("Locked"); return _isRegisterSucc;}
+
+    state = state.CopyWith(isLoading: true);
+    logger.d("act: ${state.inputAccount}, pwd: ${state.inputPassword}, repwd: ${state.inputRePassword}");
+    if(state.inputPassword.length != 0
+        && state.inputAccount.length != 0
+        && state.inputRePassword.length !=0
+        && state.inputRePassword == state.inputPassword){
+      //TODO : 其他合法性判断 or 拦截器
+      try{
+        final response = await Api.instance.register(state.inputAccount, state.inputPassword, state.inputRePassword);
+        logger.d("注册成功！");
+        _isRegisterSucc = true;
+      }catch(e){
+        logger.d("注册失败！", error: e);
+        state = state.CopyWith(isLoading: false);
+      }
+
+    }else{
+      logger.e("输入不合法！");
+    }
+    state = state.CopyWith(isLoading: false);
+    return _isRegisterSucc;
+  }
 
 }
 
