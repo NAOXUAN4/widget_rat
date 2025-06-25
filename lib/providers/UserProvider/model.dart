@@ -26,7 +26,7 @@ class User {
     required this.isLoading,
   });
 
-  User copyWith({
+  User CopyWith({
     String? ossUrl, // OSS 基础路径
     String? ossAvatarUrl,
     num? userId,

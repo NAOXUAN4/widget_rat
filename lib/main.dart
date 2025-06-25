@@ -5,7 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:oktoast/oktoast.dart';
 import 'package:widget_rat/init.dart';
-import 'package:widget_rat/providers/themeView/viewmodel.dart';
+import 'package:widget_rat/providers/ThemeProvider/viewmodel.dart';
+
 import 'package:widget_rat/router/routes.dart';
 import 'package:widget_rat/common/style/theme.dart';
 import 'package:widget_rat/utils/constants.dart';
@@ -13,7 +14,6 @@ import 'package:widget_rat/utils/global.dart';
 import 'package:widget_rat/utils/logger.dart';
 
 import 'api/api.dart';
-import 'api/dataClass/Oss_BaseUrl_data.dart';
 import 'http/dio_instance.dart';
 
 void main() {
@@ -43,7 +43,7 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (!_initialized) {
-        await initializeApp(); // 传入 ref
+        await initAsync(ref); // 传入 ref
         _initialized = true;
       }
     });

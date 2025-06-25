@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:widget_rat/pages/LoginRegisterPage/widget/actTextField.dart';
+
 
 import '../../../common/style/theme.dart';
 import '../viewmodel.dart';
+import 'LoginRegisterTextField.dart';
 
 Widget RegisterCard(TextEditingController _actController,
     TextEditingController _pwdController, TextEditingController _confirmpwdController,

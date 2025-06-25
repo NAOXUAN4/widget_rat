@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:widget_rat/pages/LoginRegisterPage/widget/actTextField.dart';
+import 'package:widget_rat/pages/myPage/viewmodel.dart';
+import 'package:widget_rat/providers/UserProvider/viewmodel.dart';
+
 
 import '../../../common/style/theme.dart';
 import '../viewmodel.dart';
+import 'LoginRegisterTextField.dart';
 
 Widget LoginCard(TextEditingController _actController, TextEditingController _pwdController,
     BuildContext context, WidgetRef ref){
@@ -60,8 +63,12 @@ Widget LoginCard(TextEditingController _actController, TextEditingController _pw
             child: ElevatedButton(
               onPressed: () {
                 /// 处理登录逻辑
-                ref.read(LoginRegistgerNotifierProvider.notifier).submitLogin().then((v){
-                  if (v) context.pop();   /// 退出登录界面
+                ref.read(LoginRegistgerNotifierProvider.notifier).submitLogin().then((value){
+                  ref.read(UserNotifierProvider.notifier).refreshUserState().then((v){  /// 叫刷新Global
+                    ref.read(mypageNotifierProvider.notifier).refreshMyPageState(); /// 叫刷新个人信息
+                    if (value) context.pop();   /// 退出登录界面
+                  });
+
                 });
 
               },

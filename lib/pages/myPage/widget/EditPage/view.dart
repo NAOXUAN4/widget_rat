@@ -150,8 +150,8 @@ class _EditMePage extends State<EditMePage>{
                       onPressed: () {
                         if (_formKey.currentState?.validate() ?? false) { /// Form 包裹正确性检测
                           ref.read(mypageNotifierProvider.notifier).updateMe().then((value){
-                            ref.read(mypageNotifierProvider.notifier).refreshGlobalInfo().then((value){
-                              logger.d(Global.userBio);
+                            ref.read(mypageNotifierProvider.notifier).refreshAfterUpdateMe(ref).then((v){
+                              // logger.d(Global.userBio);
                               context.pop();
                             });
                           });

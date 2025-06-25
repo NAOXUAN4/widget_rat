@@ -7,8 +7,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:widget_rat/common/style/theme.dart';
 import 'package:widget_rat/pages/myPage/viewmodel.dart';
+import 'package:widget_rat/providers/UserProvider/viewmodel.dart';
 
-import '../../providers/themeView/viewmodel.dart';
+import '../../providers/ThemeProvider/viewmodel.dart';
 import '../../router/routes.dart';
 import '../../utils/logger.dart';
 import '../../widgets/avatar_Container/avatar_Container.dart';
@@ -22,6 +23,8 @@ class MyPage extends ConsumerWidget {
 
     final state = ref.watch(mypageNotifierProvider);
     final themeModeState = ref.watch(themeModeNotifierProvider);  /// 日夜切换
+
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(

@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:widget_rat/common/style/theme.dart';
 import 'package:widget_rat/pages/LoginRegisterPage/viewmodel.dart';
-import 'package:widget_rat/pages/LoginRegisterPage/widget/actTextField.dart';
+
 import 'package:widget_rat/pages/LoginRegisterPage/widget/loginCard.dart';
 import 'package:widget_rat/pages/LoginRegisterPage/widget/registerCard.dart';
 

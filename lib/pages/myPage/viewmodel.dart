@@ -6,6 +6,7 @@ import 'package:oktoast/oktoast.dart';
 import 'package:widget_rat/api/dataClass/Oss_Upload_Avatar.dart';
 import 'package:widget_rat/api/dataClass/Update_Me_data.dart';
 import 'package:widget_rat/api/dataClass/UsersMe_Res_data.dart';
+import 'package:widget_rat/providers/UserProvider/viewmodel.dart';
 import 'package:widget_rat/utils/logger.dart';
 
 import '../../api/api.dart';
@@ -31,6 +32,7 @@ class MyPageNotifier extends StateNotifier<MyPageState> {
   ));
 
   final ImagePicker picker = ImagePicker();
+
 
   /// 从相册选择图片
   Future<void> pickAvatarFromGallery() async {
@@ -104,21 +106,29 @@ class MyPageNotifier extends StateNotifier<MyPageState> {
     state = state.copyWith(isLoading: false);
   }
 
+  Future<dynamic> refreshAfterUpdateMe(WidgetRef ref)async{
+    await ref.read(UserNotifierProvider.notifier).refreshUserState();
+    await refreshMyPageState();
+  }
+
 
   ///刷新GlobalInfo
-  Future<dynamic>refreshGlobalInfo()async{
+  Future<dynamic>refreshMyPageState()async{
+
     state = state.copyWith(isLoading: true);
     try{
-      final UsersMeResData response = await Api.instance.me();
-      Global.userBio = response.bio;
+      // final UsersMeResData response = await Api.instance.me();
+      // Global.userBio = response.bio;
 
       state = state.copyWith(   /// 状态初始化
         avatarUrl: Global.userAvatarPath ?? "",
-        username: Global.userName ?? "DefaultName",
+        username: Global.userName ?? "Guest",
         authorid: Global.userId ?? 0,
         userBio:  Global.userBio ?? "",
         avatarTmp: Global.userAvatarPath ?? "",
       );
+
+      logger.d(state.avatarUrl);
 
     }catch(e){
       logger.d("更新全局个人信息失败!");

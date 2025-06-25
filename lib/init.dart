@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:widget_rat/providers/UserProvider/viewmodel.dart';
 import 'package:widget_rat/utils/constants.dart';
 import 'package:widget_rat/utils/global.dart';
 import 'package:widget_rat/utils/logger.dart';
@@ -8,37 +10,17 @@ import 'api/dataClass/UsersMe_Res_data.dart';
 import 'http/dio_instance.dart';
 
 
-Future<void> initializeApp() async {
+Future<void> initAsync(WidgetRef ref) async {
 
-  // 初始化 OSS 地址
-  try  {
-    logger.d("初始化 OSS 地址");
-    final ossResult = await Api.instance.ossBaseUrl();
-    if (ossResult is OssBaseUrlData) {
-      Global.ossUrl = ossResult.ossBaseUrl;
-      Global.ossAvatarUrl = ossResult.ossAvatarUrl;
-    }
-    logger.d("初始化 OSS 地址成功");
-  } catch (e) {
-    logger.e("初始化OSS地址失败：${e}");
-  }
+  final UserViewModel = ref.watch(UserNotifierProvider);
 
-  // 获取用户信息
-  try {
-    logger.d("获取用户信息");
-    final userInfo = await Api.instance.me();
-    if(userInfo is UsersMeResData){
-      Global.userId = userInfo.id;
-      Global.userName = userInfo.username;
-      Global.userBio = userInfo.bio;
-    }
+  /// 1 .初始化 UserProvider (ossPath / userMeInfo / isLogin )
+  await ref.read(UserNotifierProvider.notifier).initUserState();
 
-    Global.isLogin  = true;   /// 登录状态 True
-    logger.d("获取用户信息成功");
 
-  }catch(e) {
-    logger.e("获取用户信息失败：${e}");
-  }
 
+}
+
+void initSync(){
 
 }
