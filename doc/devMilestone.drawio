@@ -11,7 +11,7 @@
                     <mxGeometry x="-850" y="-180" width="290" height="130" as="geometry"/>
                 </mxCell>
                 <mxCell id="8" value="&lt;strike&gt;注册+&lt;/strike&gt;后端状态码&lt;div&gt;start@25/6/25&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="-490" y="100" width="180" height="60" as="geometry"/>
+                    <mxGeometry x="-490" y="100" width="470" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="10" value="" style="endArrow=classic;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="6" target="8">
                     <mxGeometry width="50" height="50" relative="1" as="geometry">
@@ -30,11 +30,50 @@
                 <mxCell id="13" value="login页面条件，需要errCode" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
                     <mxGeometry x="-550" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="16" style="edgeStyle=none;html=1;entryX=0.75;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="15" target="8">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
                 <mxCell id="15" value="无网络轮询刷新？or 其他方法" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
                     <mxGeometry x="-413" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" style="edgeStyle=none;html=1;" edge="1" parent="1" source="19" target="8">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="19" value="切换账号遇到的全局同步问题 ==&amp;gt; 规格化全局用户信息viewmodel" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="-270" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="22" style="edgeStyle=none;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="21" target="19">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" value="应对这一问题重构全局Provider UserProvider" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="-120" width="100" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="23" style="edgeStyle=none;html=1;entryX=0.477;entryY=-0.051;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="15" target="8">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="24" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;软件时序设计&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+                    <mxGeometry x="-1540" width="180" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="26" value="" style="shape=flexArrow;endArrow=classic;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="-1530" y="90" as="sourcePoint"/>
+                        <mxPoint x="-1530" y="425.7647346047793" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="29" value="main函数，设置状态栏颜色" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="-1480" y="80" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="30" value="runApp，ProviderScope包裹，ref开始可用" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="-1480" y="160" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="31" value="MyApp的initstate(),&lt;div&gt;Dio instance 初始化&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="-1480" y="240" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="32" value="User + 系统 init函数异步执行" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="-1480" y="320" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="33" value="" style="rounded=1;whiteSpace=wrap;html=1;glass=1;fillColor=none;strokeColor=light-dark(#0112fe, #ededed);" vertex="1" parent="1">
+                    <mxGeometry x="-1490" y="230" width="180" height="170" as="geometry"/>
+                </mxCell>
+                <mxCell id="34" value="加载中，骨架屏？" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="-1350" y="280" width="30" height="60" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>

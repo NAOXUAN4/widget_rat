@@ -8,7 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:widget_rat/common/style/theme.dart';
 import 'package:widget_rat/pages/myPage/viewmodel.dart';
 
-import '../../providers/themeviewmodel.dart';
+import '../../providers/themeView/viewmodel.dart';
 import '../../router/routes.dart';
 import '../../utils/logger.dart';
 import '../../widgets/avatar_Container/avatar_Container.dart';

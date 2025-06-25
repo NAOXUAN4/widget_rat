@@ -10,8 +10,6 @@ import 'http/dio_instance.dart';
 
 Future<void> initializeApp() async {
 
-  DioInstance.instance().initDio(baseUrl: Constants.baseUrl);
-
   // 初始化 OSS 地址
   try  {
     logger.d("初始化 OSS 地址");

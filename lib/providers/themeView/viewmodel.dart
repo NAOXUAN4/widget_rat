@@ -1,13 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ThemeModeState {
-  final bool isNight;
+import 'model.dart';
 
 
-  ThemeModeState({
-    this.isNight = false,
-  });
-}
 
 
 class ThemeModeNotifier  extends StateNotifier<ThemeModeState> {

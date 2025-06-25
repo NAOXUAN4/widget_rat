@@ -22,7 +22,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   TextEditingController _actController = TextEditingController();
   TextEditingController _confirmpwdController = TextEditingController();
   
-  final bool isRegister = true;  /// 测试变量
+  final bool isRegister = false;  /// 测试变量
 
   @override
   void initState() {
