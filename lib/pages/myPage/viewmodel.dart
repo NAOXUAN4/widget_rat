@@ -107,7 +107,7 @@ class MyPageNotifier extends StateNotifier<MyPageState> {
   }
 
   Future<dynamic> refreshAfterUpdateMe(WidgetRef ref)async{
-    await ref.read(UserNotifierProvider.notifier).refreshUserState();
+    await ref.read(UserNotifierProvider.notifier).refreshUserState(); /// 刷新 Global， 同步全局状态
     await refreshMyPageState();
   }
 

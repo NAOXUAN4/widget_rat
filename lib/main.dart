@@ -37,13 +37,18 @@ class MyApp extends ConsumerStatefulWidget {
 class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
   bool _initialized = false;
 
+
   @override
   void initState() {
-    DioInstance.instance().initDio(baseUrl: Constants.baseUrl); /// 初始化 Dio
+    initSync();  /// 1.同步初始化
+
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (!_initialized) {
+
+        ///2. 异步初始化
         await initAsync(ref); // 传入 ref
+
         _initialized = true;
       }
     });
@@ -60,7 +65,7 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
             routerConfig: approutes,
             theme: AppTheme.lightTheme,
             darkTheme: AppTheme.darkTheme,
-            themeMode: ThemeModeState.isNight ? ThemeMode.dark : ThemeMode.light,
+            themeMode:(ThemeModeState.isNight ? ThemeMode.dark : ThemeMode.light),
           );
         },
       ),
