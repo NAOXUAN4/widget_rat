@@ -18,7 +18,7 @@ Widget RegisterCard(TextEditingController _actController,
       height: 380.sp, // 增加高度以容纳更多内容
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
+        color: Theme.of(context).colorScheme.background,
         borderRadius: AppTheme.defaultBorderRadius,
       ),
       child: Column(

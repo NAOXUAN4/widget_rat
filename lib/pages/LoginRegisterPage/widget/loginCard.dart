@@ -19,7 +19,7 @@ Widget LoginCard(TextEditingController _actController, TextEditingController _pw
       height: 380.sp, // 增加高度以容纳更多内容
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
+        color: Theme.of(context).colorScheme.background,
         borderRadius: AppTheme.defaultBorderRadius,
       ),
       child: Column(
@@ -93,7 +93,7 @@ Widget LoginCard(TextEditingController _actController, TextEditingController _pw
           // 注册选项
           Container(
             padding: EdgeInsets.only(top: 10.sp),
-            child: Row(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
