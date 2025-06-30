@@ -137,6 +137,7 @@ class MyPageNotifier extends StateNotifier<MyPageState> {
       );
 
       logger.d(state.avatarUrl);
+      logger.d(Global.userId);
 
     }catch(e){
       logger.d("更新全局个人信息失败!");

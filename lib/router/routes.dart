@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:widget_rat/nav/nav.dart';
 import 'package:widget_rat/pages/LoginRegisterPage/view.dart';
+import 'package:widget_rat/pages/settingsPage/view.dart';
 
 import '../pages/CreatePostPage/view.dart';
 import '../pages/myPage/widget/EditPage/view.dart';
@@ -56,7 +57,7 @@ final GoRouter approutes = GoRouter(
           builder: (context, state) => MyPage(),
         ),
         GoRoute(
-          path: '/editme',
+          path: '/editMe',
           name: RouteNames.EditMePage,
           builder: (context, state) => EditMePage(),
         ),
@@ -70,6 +71,11 @@ final GoRouter approutes = GoRouter(
           path: '/login',
           name: RouteNames.loginPage,
           builder: (context, state) => LoginPage(),
+        ),
+        GoRoute(
+          path: '/settings',
+          name: RouteNames.settingsPage,
+          builder: (context, state) => settingsPage(),
         ),
         GoRoute(
           path: '/test',
@@ -90,7 +96,8 @@ class RouteNames {
   static const String searchPage = "/search";
   static const String sectionsPage = "/sections";
   static const String myPage = "/my";
-  static const String EditMePage = "/editme";
+  static const String EditMePage = "/editMe";
   static const String testPage = "/test";
   static const String loginPage = "/login";
+  static const String settingsPage = "/settings";
 }

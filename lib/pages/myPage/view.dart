@@ -213,7 +213,7 @@ class MyPage extends ConsumerWidget {
     final List<List> iconTextKV = [
       [Icons.manage_accounts_outlined, "Manage", RouteNames.EditMePage],
       [Icons.info_outline, "About", "/my/about"],
-      [Icons.settings_sharp, "Settings", "/my/settings"],
+      [Icons.settings_sharp, "Settings", RouteNames.settingsPage],
     ];
     return GestureDetector(
       onTap: () {

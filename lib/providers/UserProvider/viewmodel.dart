@@ -53,8 +53,7 @@ class UserNotifier extends StateNotifier<User> {
         Global.userName = state.userName;
         Global.userBio = state.userBio;
         Global.userAvatarPath = state.userAvatarPath;
-
-
+        Global.isLogin = true;
       }
 
       state = state.CopyWith(loginStatus: true);   /// 登录状态 True
@@ -64,7 +63,6 @@ class UserNotifier extends StateNotifier<User> {
       logger.e("获取用户信息失败：${e}， 未登录！");
     }
   }
-
 
 
   Future<dynamic> refreshUserState() async{
@@ -99,6 +97,7 @@ class UserNotifier extends StateNotifier<User> {
   /// 退出登录
   Future<dynamic>userLogout()async{
     state = state.CopyWith(isLoading: true);
+    logger.d(Global.isLogin);
     if(Global.isLogin){
       Global.userId = null;
       Global.userName = null;
@@ -112,7 +111,7 @@ class UserNotifier extends StateNotifier<User> {
         loginStatus: false,
         isLoading: false,
       );
-
+      logger.d(Global.userId);
       Global.isLogin = false;
     }
 
