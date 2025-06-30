@@ -94,6 +94,31 @@ class UserNotifier extends StateNotifier<User> {
       logger.e("获取用户信息失败：${e}");
     }
   }
+
+
+  /// 退出登录
+  Future<dynamic>userLogout()async{
+    state = state.CopyWith(isLoading: true);
+    if(Global.isLogin){
+      Global.userId = null;
+      Global.userName = null;
+      Global.userBio = null;
+      Global.userAvatarPath = "http//";  //过Network检测
+      state = state.CopyWith(
+        userId: null,
+        userName: null,
+        userBio: null,
+        userAvatarPath: null,
+        loginStatus: false,
+        isLoading: false,
+      );
+
+      Global.isLogin = false;
+    }
+
+    state = state.CopyWith(isLoading: false);
+  }
+
 }
 
 
