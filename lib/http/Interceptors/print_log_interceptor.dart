@@ -7,7 +7,7 @@ class PrintLogInterceptor extends InterceptorsWrapper {
   @override
   onRequest(RequestOptions options, RequestInterceptorHandler handler) {
 
-      log("\nrequset----------------------------->");
+      log("\n ▶️requset----------------------------->");
       options.headers.forEach((key, value) {
       log("请求头: key = $key: value = ${value.toString()} ");
       });
@@ -15,7 +15,7 @@ class PrintLogInterceptor extends InterceptorsWrapper {
       log("method = ${options.method}");
       log("data = ${options.data}");
       log("queryParameters = ${options.queryParameters.toString()}");
-      log("<-------------------------------request\n\n");
+      log("<-------------------------------request");
 
     super.onRequest(options, handler);
   }

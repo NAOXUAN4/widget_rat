@@ -138,6 +138,18 @@ class Api {
     }//拦截器会返回true或false
   }
 
+  /// POST "api/users/logout"  注销， 清空cookie
+  Future<void> logOut() async{
+    Response response = await DioInstance.instance().post(
+        path: "api/users/logout/"
+    );
+    try{
+      response.statusCode == 200;
+    }catch(e){
+      logger.e(e);
+    }
+  }
+
   /// GET "api/users/me/"  获取用户基本信息
   Future<dynamic>me()async{
     Response response = await DioInstance.instance().get(

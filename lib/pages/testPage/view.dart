@@ -75,9 +75,15 @@ class TestPage extends StatelessWidget{
                     child: Text("uploadAvatarTest")
                 ),
                 ElevatedButton(
+                    onPressed: (){
+                      ref.read(counterNotifierProvider.notifier).logoutTest();
+                    },
+                    child: Text("logouttest")
+                ),
+                ElevatedButton(
                     onPressed: ()=>context.go(RouteNames.loginPage),
                     child: Text("go2LoginPage")
-                )
+                ),
               ],
             ),
           );

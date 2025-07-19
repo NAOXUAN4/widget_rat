@@ -55,6 +55,10 @@ class CounterStateNotifier extends StateNotifier<int> {
     logger.d("${response}");
   }
 
+  Future logoutTest()async{
+    await Api.instance.logOut();
+  }
+
 }
 
 final counterNotifierProvider = StateNotifierProvider<CounterStateNotifier, int>(
