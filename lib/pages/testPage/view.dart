@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:widget_rat/pages/testPage/viewmodel.dart';
 import 'package:widget_rat/router/routes.dart';
+import 'package:widget_rat/utils/global.dart';
 
 
 class TestPage extends StatelessWidget{
@@ -84,6 +85,14 @@ class TestPage extends StatelessWidget{
                     onPressed: ()=>context.go(RouteNames.loginPage),
                     child: Text("go2LoginPage")
                 ),
+                ElevatedButton(
+                    onPressed: (){
+                      print(Global.isLogin);
+                      print(Global.userAvatarPath);
+                    },
+                    child: Text("test")
+                ),
+
               ],
             ),
           );

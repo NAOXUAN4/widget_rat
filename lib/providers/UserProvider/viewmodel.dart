@@ -70,7 +70,7 @@ class UserNotifier extends StateNotifier<User> {
 
     // 获取用户信息
     try {
-      logger.d("获取用户信息");
+      logger.d("刷新用户信息");
       final userInfo = await Api.instance.me();
       if(userInfo is UsersMeResData){
         state = state.CopyWith(userId: userInfo.id, userName: userInfo.username,
@@ -93,16 +93,28 @@ class UserNotifier extends StateNotifier<User> {
     }
   }
 
+  ///登录
+  Future<dynamic>userLogin() async{
+    state = state.CopyWith(isLoading: true);
+    if(!Global.isLogin){
+      await refreshUserState().then((v) { Global.isLogin = true;});
+
+    }
+
+    state = state.CopyWith(isLoading: false);
+  }
+
+
 
   /// 退出登录
   Future<dynamic>userLogout()async{
     state = state.CopyWith(isLoading: true);
-    logger.d(Global.isLogin);
+    // logger.d(Global.isLogin);
     if(Global.isLogin){
       Global.userId = null;
       Global.userName = null;
       Global.userBio = null;
-      Global.userAvatarPath = "http//";  //过Network检测
+      Global.userAvatarPath = "https://";  //过Network检测
       state = state.CopyWith(
         userId: null,
         userName: null,
@@ -111,7 +123,7 @@ class UserNotifier extends StateNotifier<User> {
         loginStatus: false,
         isLoading: false,
       );
-      logger.d(Global.userId);
+      // logger.d(Global.userId);
       Global.isLogin = false;
     }
 

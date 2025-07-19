@@ -115,6 +115,7 @@ class MyPageNotifier extends StateNotifier<MyPageState> {
   Future<dynamic>logOutAtMyPage(WidgetRef ref)async{
     state = state.copyWith(isLoading: true);
     await ref.read(UserNotifierProvider.notifier).userLogout(); /// 刷新 Global
+    await Api.instance.logOut();  /// 清空cookie，后端拉黑JWT
     await refreshMyPageState(); /// 同步state 与 Global
     state = state.copyWith(isLoading: false);
   }

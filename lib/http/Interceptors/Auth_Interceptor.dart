@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:widget_rat/utils/global.dart';
 import '../../utils/constants.dart';
 import '../../utils/logger.dart';
 import '../../utils/sp_utils.dart';
@@ -42,15 +43,30 @@ class AuthInterceptor extends Interceptor {
 
       if (cookieList.isNotEmpty) {
         SpUtils.saveStringList(Constants.SP_Cookie_List, cookieList);
+        logger.d(cookieList);
       }
     }
+
+    if(path.contains("users/logout")){
+      dynamic list = response.headers[HttpHeaders.setCookieHeader];
+      List<String> cookieList = [
+        "access_token=",
+        "refresh_token="
+      ];
+      if(list is List){
+        SpUtils.saveStringList(Constants.SP_Cookie_List, cookieList);
+      }
+
+      logger.d(list);
+    }
+
     handler.next(response);
   }
 
   // 错误拦截：处理 401 并尝试刷新 Token
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) async {
-    if (err.response?.statusCode == 401) {
+    if (err.response?.statusCode == 401 && Global.isLogin) {
       logger.e("Token 验证失败，正在尝试刷新 Token...");
       try {
         final String? refreshToken = await _getRefreshTokenFromCookies();
@@ -112,6 +128,9 @@ class AuthInterceptor extends Interceptor {
       }
     } else {
       handler.reject(err);
+      if(!Global.isLogin){
+        logger.d("用户信息无效！");
+      }
     }
   }
 

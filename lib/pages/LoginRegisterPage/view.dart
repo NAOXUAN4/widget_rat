@@ -8,6 +8,7 @@ import 'package:widget_rat/pages/LoginRegisterPage/viewmodel.dart';
 
 import 'package:widget_rat/pages/LoginRegisterPage/widget/loginCard.dart';
 import 'package:widget_rat/pages/LoginRegisterPage/widget/registerCard.dart';
+import 'package:widget_rat/providers/UserProvider/viewmodel.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
@@ -40,6 +41,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final ViewModel = ref.watch(LoginRegistgerNotifierProvider);
+    final userProvider = ref.watch(UserNotifierProvider);
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Container(

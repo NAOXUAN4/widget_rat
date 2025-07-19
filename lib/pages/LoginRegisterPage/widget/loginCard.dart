@@ -63,7 +63,7 @@ Widget LoginCard(TextEditingController _actController, TextEditingController _pw
             child: ElevatedButton(
               onPressed: () {
                 /// 处理登录逻辑
-                ref.read(LoginRegistgerNotifierProvider.notifier).submitLogin().then((value){
+                ref.read(LoginRegistgerNotifierProvider.notifier).submitLogin(ref).then((value){
                   ref.read(UserNotifierProvider.notifier).refreshUserState().then((v){  /// 叫刷新Global
                     ref.read(mypageNotifierProvider.notifier).refreshMyPageState(); /// 叫刷新个人信息
                     if (value) context.pop();   /// 退出登录界面
