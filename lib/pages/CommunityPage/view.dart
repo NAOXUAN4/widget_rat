@@ -44,7 +44,7 @@ class _CommunityPageState extends State<CommunityPage> {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        title: Text("Community"),
+        title: Text("Community",style: TextStyle(fontFamily: 'PixelFun',fontWeight: FontWeight.w300,color: Theme.of(context).colorScheme.onSurface),),
         actions: [
           IconButton(
             icon: Icon(Icons.post_add_outlined),

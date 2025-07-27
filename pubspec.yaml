@@ -131,5 +131,17 @@ flutter:
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
   #
+  fonts:
+    - family: IllusionBook
+      fonts:
+        - asset: assets/font/illusionBook/IllusionBook-Regular.ttf
+    - family: PixelFun
+      fonts:
+        - asset: assets/font/PixelFun/LLPixelFun-Rounded.ttf
+    - family: ChillMoonMono
+      fonts:
+        - asset: assets/font/ChillMoonMono/ChillMoonMono.otf
+
+
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package

@@ -41,6 +41,7 @@ class AppTheme {
       onBackground: _darkText,
       onError: Colors.white,
     ),
+    // fontFamily: 'IllusionBook',
     useMaterial3: true,
   );
 
@@ -59,6 +60,7 @@ class AppTheme {
       onBackground: _lightText,
       onError: Colors.white,
     ),
+    // fontFamily: 'ChillMoonMono',
     useMaterial3: true,
   );
 
